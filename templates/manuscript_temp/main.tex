@@ -1,0 +1,98 @@
+\documentclass{article}
+\usepackage{fontspec}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=cyan,  % cross-reference
+	filecolor=blue,
+	urlcolor=blue,    % external link
+	citecolor=black, % reference/citation
+} % TO USE: \href{url}{caption}
+
+% \usepackage{xeCJK} % Chinese, Japanese, and Korean
+% \setCJKmainfont{SimSun} % font
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{subfigure,graphicx}
+\usepackage{outlines}
+\usepackage{natbib}
+\usepackage{colortbl} % required for \color and \cellcolor
+
+% for \plim; either of the following two lines allows \plim
+% \DeclareMathOperator*{\plim}{plim}
+\usepackage{statmath} % I don't know why without this table failed
+
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+\title{A basic LaTeX template supporting Chinese}
+\author{Tsung-Hsi, Wu\\
+	\ttfamily{tsung.hsi@g.ncu.edu.tw}}
+
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    Abstract starts here \citep{exampleArticle2022}.
+\end{abstract}
+
+
+
+\section{Introduction}
+\begin{tabular}{r|ccc|cc}
+    % \toprule
+                & \multicolumn{3}{c}{Group 1} & \multicolumn{2}{c}{Group 2}                                  \\
+                & (1)                         & (2)                         & (3)      & (4)      & (5)      \\ \hline
+    (Intercept) & 19.978*                     & 15.809                      & 14.167   & 11.834   & 11.011   \\
+                & (11.688)                    & (11.084)                    & (11.519) & (8.535)  & (11.704) \\
+    Raises      & 0.691***                    & 0.379*                      & 0.352    & -0.026   & -0.033   \\
+                & (0.179)                     & (0.217)                     & (0.224)  & (0.184)  & (0.202)  \\
+    Learning    &                             & 0.432**                     & 0.394*   & 0.246    & 0.249    \\
+                &                             & (0.193)                     & (0.204)  & (0.154)  & (0.160)  \\
+    Privileges  &                             &                             & 0.105    & -0.103   & -0.104   \\
+                &                             &                             & (0.168)  & (0.132)  & (0.135)  \\
+    Complaints  &                             &                             &          & 0.691*** & 0.692*** \\
+                &                             &                             &          & (0.146)  & (0.149)  \\
+    Critical    &                             &                             &          &          & 0.015    \\
+                &                             &                             &          &          & (0.147)  \\ \hline
+    N           & 30                          & 30                          & 30       & 30       & 30       \\
+    $R^2$       & 0.348                       & 0.451                       & 0.459    & 0.715    & 0.715    \\
+    % \bottomrule
+\end{tabular}
+
+\begin{table}
+    \begin{tabular}{rrrr}
+        \hline\hline
+        \textbf{Time}                                  & \textbf{Acceleration}                          & \textbf{$Velocity (\nu)$}                      & \textbf{Distance}                               \\
+        \texttt{[s]}                                   & \texttt{[m/s$^2$]}                             & \texttt{[m/s]}                                 & \texttt{[m]}                                    \\\hline
+        0.0                                            & 1.0                                            & 0.0                                            & 0.0                                             \\
+        1.0                                            & 1.0                                            & 1.0                                            & 0.5                                             \\
+        2.0                                            & 1.0                                            & 2.0                                            & 2.0                                             \\
+        3.0                                            & 1.0                                            & 3.0                                            & 4.5                                             \\
+        4.0                                            & 1.0                                            & 4.0                                            & 8.0                                             \\
+        5.0                                            & 1.0                                            & 5.0                                            & \color{red}{\textbf{12.5}}                      \\
+        6.0                                            & 1.0                                            & 6.0                                            & \color{red}{\textbf{18.0}}                      \\
+        7.0                                            & 1.0                                            & 7.0                                            & \color{red}{\textbf{24.5}}                      \\
+        8.0                                            & 1.0                                            & 8.0                                            & \color{red}{\textbf{32.0}}                      \\
+        \cellcolor{black}{\color{white}{\textbf{9.0}}} & \cellcolor{black}{\color{white}{\textbf{1.0}}} & \cellcolor{black}{\color{white}{\textbf{9.0}}} & \cellcolor{black}{\color{white}{\textbf{40.5}}} \\
+        10.0                                           & 1.0                                            & \color{blue}{\textbf{10.0}}                    & \color{red}{\textbf{50.0}}                      \\
+        11.0                                           & 1.0                                            & \color{blue}{\textbf{11.0}}                    & \color{red}{\textbf{60.5}}                      \\
+        12.0                                           & 1.0                                            & \color{blue}{\textbf{12.0}}                    & \color{red}{\textbf{72.0}}                      \\
+        13.0                                           & 1.0                                            & \color{blue}{\textbf{13.0}}                    & \color{red}{\textbf{84.5}}                      \\
+        14.0                                           & 1.0                                            & \color{blue}{\textbf{14.0}}                    & \color{red}{\textbf{98.0}}                      \\
+        15.0                                           & 1.0                                            & \color{blue}{\textbf{15.0}}                    & \color{red}{\textbf{112.5}}                     \\
+        16.0                                           & 1.0                                            & \color{blue}{\textbf{16.0}}                    & \color{red}{\textbf{128.0}}                     \\
+        17.0                                           & 1.0                                            & \color{blue}{\textbf{17.0}}                    & \color{red}{\textbf{144.5}}                     \\
+        18.0                                           & 1.0                                            & \color{blue}{\textbf{18.0}}                    & \color{red}{\textbf{162.0}}                     \\
+        19.0                                           & 1.0                                            & \color{blue}{\textbf{19.0}}                    & \color{red}{\textbf{180.5}}                     \\
+        20.0                                           & 1.0                                            & \color{blue}{\textbf{20.0}}                    & \color{red}{\textbf{200.0}}                     \\
+        \hline\hline
+    \end{tabular}
+\end{table}
+
+\bibliographystyle{apalike}
+\bibliography{main}
+
+\end{document}
