@@ -1,20 +1,41 @@
 {
     "name": "project-dev",
-    "dockerComposeFile": ["docker-compose.yml"],
+    "dockerComposeFile": [
+        "docker-compose.yml"
+    ],
     "service": "vscode",
-    "runServices": ["vscode"],
+    "runServices": [
+        "vscode"
+    ],
     "shutdownAction": "stopCompose",
     "workspaceFolder": "/workspace",
     "postCreateCommand": "",
     "extensions": [
         "james-yu.latex-workshop",
-        // Git
-        "eamodio.gitlens",
+        "mathematic.vscode-latex",
+        "jeffersonqin.latex-snippets-jeff",
+        "tecosaur.latex-utilities",
         // Other helpers
-        "shardulm94.trailing-spaces",
         "stkb.rewrap", // rewrap comments after n characters on one line
+        "gruntfuggly.todo-tree",
+        "streetsidesoftware.code-spell-checker",
+        "tabnine.tabnine-vscode",
         // Other
         "vscode-icons-team.vscode-icons",
+        // git and github
+        "mhutchie.git-graph",
+        "donjayamanne.githistory",
+        "github.vscode-pull-request-github",
+        "eamodio.gitlens",
+        "mathieu.vscode-github-actions",
+        // format and highlight
+        "shardulm94.trailing-spaces",
+        "christian-kohler.path-intellisense",
+        // markdown
+        "shd101wyy.markdown-preview-enhanced",
+        "yzhang.markdown-all-in-one",
+        "tomashubelbauer.vscode-markdown-table-format",
+        "joffreykern.markdown-toc",
     ],
     "settings": {
         // General settings
@@ -33,6 +54,160 @@
             "%DIR%/",
             "%TMPFILE%",
             "-y=defaultIndent: '%INDENT%'"
-        ]
+        ],
+        "latex-workshop.view.pdf.viewer": "tab",
+        // okatsn
+        // General
+        "editor.detectIndentation": false,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true,
+        "files.trimTrailingWhitespace": true,
+        "editor.selectionHighlight": true,
+        "git.checkoutType": [
+            "local",
+            // "remote",
+            "tags"
+        ],
+        // todo-tree
+        "todo-tree.general.enableFileWatcher": true,
+        "todo-tree.tree.buttons.scanMode": true,
+        "todo-tree.general.statusBar": "total",
+        "todo-tree.regex.regex": "(//|#|%|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)",
+        "todo-tree.general.tags": [
+            "BUG",
+            "HACK",
+            "FIXME",
+            "TODO",
+            "XXX",
+            "[ ]",
+            "CHECKPOINT",
+            "QUESTION",
+            "KEYNOTE",
+            "SETME",
+            "todo",
+            "DEBUGGING",
+            "fixme",
+            "WARN",
+            "keynote",
+            "REMINDER",
+            "HELLO"
+        ],
+        "todo-tree.tree.showCountsInTree": true,
+        // markdown
+        "markdown.extension.toc.levels": "1..3",
+        // others 
+        "cSpell.maxNumberOfProblems": 10000, // highlight more spelling errors
+        // Latex Recipe
+        "latex-workshop.latex.tools": [
+            {
+                "name": "latexmk",
+                "command": "latexmk",
+                "args": [
+                    "-synctex=1",
+                    "-interaction=nonstopmode",
+                    "-file-line-error",
+                    "-pdf",
+                    "%DOC%"
+                ]
+            },
+            {
+                "name": "xelatex",
+                "command": "xelatex",
+                "args": [
+                    "-synctex=1",
+                    "-interaction=nonstopmode",
+                    "-file-line-error",
+                    "%DOC%"
+                ]
+            },
+            {
+                "name": "pdflatex",
+                "command": "pdflatex",
+                "args": [
+                    "-synctex=1",
+                    "-interaction=nonstopmode",
+                    "-file-line-error",
+                    "%DOC%"
+                ]
+            },
+            {
+                "name": "bibtex",
+                "command": "bibtex",
+                "args": [
+                    "%DOCFILE%"
+                ]
+            },
+            {
+                "name": "biber",
+                "command": "biber",
+                "args": [
+                    "%DOCFILE%"
+                ]
+            }
+        ],
+        "latex-workshop.latex.recipes": [
+            {
+                "name": "xelatex -> bibtex -> xelatex*2",
+                "tools": [
+                    "xelatex",
+                    "bibtex",
+                    "xelatex",
+                    "xelatex"
+                ]
+            },
+            {
+                "name": "latexmk",
+                "tools": [
+                    "latexmk"
+                ]
+            },
+            {
+                "name": "xelatex",
+                "tools": [
+                    "xelatex"
+                ]
+            },
+            {
+                "name": "pdflatex -> bibtex -> pdflatex*2",
+                "tools": [
+                    "pdflatex",
+                    "bibtex",
+                    "pdflatex",
+                    "pdflatex"
+                ]
+            },
+            {
+                "name": "xelatex -> biber -> xelatex*2",
+                "tools": [
+                    "xelatex",
+                    "biber",
+                    "xelatex",
+                    "xelatex"
+                ]
+            }
+        ],
+        "latex-workshop.latex.clean.fileTypes": [
+            "*.aux",
+            "*.bbl",
+            "*.blg",
+            "*.idx",
+            "*.ind",
+            "*.lof",
+            "*.lot",
+            "*.out",
+            "*.toc",
+            "*.acn",
+            "*.acr",
+            "*.alg",
+            "*.glg",
+            "*.glo",
+            "*.gls",
+            "*.ist",
+            "*.fls",
+            "*.log",
+            "*.fdb_latexmk"
+        ],
     }
 }
