@@ -1,0 +1,1134 @@
+% gjilguid2e.tex
+% V2.0 released 1998 December 18
+% V2.1 released 2003 October 7 -- Gregor Hutton, updated the web address for the style files.
+
+\documentclass{gji}
+\usepackage{timet}
+
+\title[Geophys.\ J.\ Int.: \LaTeXe\ Guide for Authors]
+  {Geophysical Journal International:
+   \LaTeXe\ style guide for authors}
+\author[B.L.N. Kennett]
+  {B.L.N. Kennett$^1$\thanks{Pacific Region Office, GJI} \\
+  $^1$ Research School of Earth Sciences, Australian National
+    University, Canberra ACT \emph{0200}, Australia
+  }
+\date{Received 1998 December 18; in original form 1998 November 22}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\volume{200}
+\pubyear{1998}
+
+%\def\LaTeX{L\kern-.36em\raise.3ex\hbox{{\small A}}\kern-.15em
+%    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}
+%\def\LATeX{L\kern-.36em\raise.3ex\hbox{{\Large A}}\kern-.15em
+%    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}
+% Authors with AMS fonts and mssymb.tex can comment out the following
+% line to get the correct symbol for Geophysical Journal International.
+\let\leqslant=\leq
+
+\newtheorem{theorem}{Theorem}[section]
+
+\begin{document}
+
+\label{firstpage}
+
+\maketitle
+
+
+\begin{summary}
+ This guide is for authors who are preparing papers for
+ \textit{Geophysical Journal International} using the
+\LaTeXe\ document preparation system and the GJI class file.
+\end{summary}
+
+\begin{keywords}
+ \LaTeXe\ -- class files: \verb"gji.cls"\ -- sample text -- user guide.
+\end{keywords}
+
+\section{Introduction}
+
+In addition to the standard submission of hardcopy from authors,
+\textit{Geophysical Journal International} accepts machine-readable forms
+of  papers in \LaTeX.
+The layout design for \textit{Geophysical Journal International} has been
+implemented as a \LaTeXe\ class file derived from the MN style file for
+Monthly Notices of the Royal Astronomical Society. The GJI classfile is
+based on the \verb"ARTICLE" style as discussed in the \LaTeX\ manual
+\cite {la}. Commands which differ from the standard \LaTeX\ interface, or
+which are provided in addition to the standard interface, are explained
+in this guide. This guide is not a substitute for the \LaTeX\ manual
+itself. Authors planning to submit their papers in \LaTeX\ are advised to
+use \verb"gji.cls" as  early as possible in the creation of their
+files.  This guide is modified from that produced by Woollatt et al (1994)
+to describe the features of the MN style.
+
+A very accessible guide to the features of \LaTeXe and the differences
+from the earlier version is provided by Kopka \& Daly \shortcite{kd}.  This
+reference provides in chapter 9 a summary of \LaTeX\ error messages and also
+a full description of standard \LaTeX\ commands in Appendix F.
+
+
+\subsection{The GJI document classes}
+
+The use of \LaTeX\ document classes allows a simple change of class
+(or class option) to transform the appearance of your document. The
+GJI class file preserves the standard \LaTeX\ interface such that any
+document which can be produced using the standard \LaTeX\ \verb"ARTICLE"
+class can also be produced with the GJI class. However, the measure (or
+width of text) is narrower than the default for \verb"ARTICLE", therefore
+line breaks will change and long equations may need re-setting.
+
+
+\subsection{General style issues}
+
+For general style issues, authors are referred to the `Instructions for
+Authors' on the inside back cover of \textit{Geophysical Journal
+International}. Authors
+who are interested in the details of style are referred to Butcher
+\shortcite {bu} and The Chicago Manual \shortcite {cm}. The language of
+the journal is British English and spelling should conform to this.
+
+Use should be made of symbolic references (\verb"\ref") in order to
+protect against late changes of order, etc.
+
+\subsection{Submission of \LaTeX\ articles to the journal}
+
+Papers should initially be submitted in the usual way to:
+The Executive Secretary, Royal Astronomical Society, {\em or\/}
+the EGS Editor,  {\em or\/} the DGG editor,  {\em or\/}
+the American Editor,  {\em or\/} the Pacific Region Editor,
+as set out in the Instructions for Authors on the inside back cover of
+each issue of Geophysical Journal International.
+Four hard copies should be supplied including figures, normally using the
+\verb"[referee]" option, for papers with a  high mathematical content the
+\verb"[mreferee]" option is recommended. In each case a separate page of
+figure captions is preferred.
+One of the copies should  be single-sided,
+while the other two should  be weight-reduced, by being either
+single-spaced or double-sided.   Copies of figures should
+also be supplied. Authors should  ensure that their figures are suitable
+(in terms of lettering size, etc.)  for the reductions they intend; they
+should not attempt to include their figures inside a \TeX\ or \LaTeX\
+file by using \verb"\special" or one of the style files for figure
+handling.
+
+Note that articles, or revised versions thereof, may not currently be
+submitted by electronic mail. However when the article is accepted for
+publication the \LaTeX\ file can be sent to the publisher by \verb"ftp"
+together with appropriate forms of figures.  Instructions will be provided
+following acceptance.
+
+\section{Using the GJI class file}
+
+If the file \verb"gji.cls" is not already in the appropriate
+system directory for \LaTeX\ files, either arrange for it to be
+put there, or copy it to your working directory. The class file
+and related material, such as this guide, can be accessed via the
+journal web-site  at
+http://www.blackwellpublishing.com/journals/gji under {\em Author
+Guidelines}.
+
+The GJI document class is implemented as a complete document class, {\em
+not\/} a document class option. In   order to use the GJI style, replace
+\verb"article" by
+\verb"gji" in the
+\verb"\documentclass" command at the beginning of your document:
+\begin{verbatim}
+\documentclass{article}
+\end{verbatim}
+is replaced by
+\begin{verbatim}
+\documentclass{gji}
+\end{verbatim}
+In general, the following standard document class options should {\em
+not\/} be used with the GJI style:
+\begin{enumerate}
+  \item \texttt{10pt}, \texttt{11pt}, \texttt{12pt} -- unavailable;
+  \item \texttt{twoside} (no associated style file) --
+     \texttt{twoside} is the default;
+  \item \texttt{fleqn}, \texttt{leqno}, \texttt{titlepage} --
+        should not be used (\verb"fleqn" is already incorporated into
+        the GJI style);
+  \item \texttt{twocolumn} -- is not necessary as it is the default style.
+\end{enumerate}
+
+In \LaTeX2e the use of postscript fonts and the inclusion of non-standard
+options is carried out through the \verb"\usepackage" command, rather than
+as options as in earlier versions.  Thus the Times font can be used for
+text by including
+\begin{verbatim}
+\usepackage{times}
+\end{verbatim}
+on the line immediately after the \verb"\documentclass". If necessary,
+\texttt{ifthen} and \texttt{bezier} can be included as packages.
+
+The GJI class file has been designed to operate with the standard
+version of \verb"lfonts.tex" that is distributed as part of \LaTeX
+. If you have access to the source file for this guide,
+\verb"gjilguid2e.tex", attempt to typeset it.  If you find font
+problems you might investigate whether a non-standard version of
+\verb"lfonts.tex" has been installed in your system.
+
+\subsection{Additional document class options}\label{classoptions}
+
+The following additional class options are available with the GJI style:
+\begin{description}
+  \item \texttt{onecolumn} -- to be used \textit{only} when two-column output
+        is unable to accommodate long equations;
+  \item \texttt{landscape} -- for producing wide figures and tables which
+        need to be included in landscape format (i.e.\ sideways) rather
+        than portrait (i.e.\ upright). This option is described below.
+  \item \texttt{doublespacing} -- this will double-space your
+        article by setting \verb"\baselinestretch" to 2.
+  \item \texttt{referee} -- 12/20pt text size, single column,
+        designed for submission of papers.
+  \item \texttt{mreferee} -- 11/17pt text size, single column
+        designed for submission of papers with mathematical content.
+  \item \texttt{camera} -- designed for use with computer modern fonts to
+        produce a closer representation of GJI style for camera
+        ready material.
+  \item \texttt{galley} -- no running heads, no attempt to align
+        the bottom of columns.
+\end{description}
+
+
+\subsection{Landscape pages}
+
+If a table or illustration is too wide to fit the standard measure, it
+must be turned, with its caption, through 90 degrees anticlockwise.
+Landscape illustrations and/or tables cannot be produced directly
+using the GJI style file because \TeX\ itself cannot turn the
+page, and not all device drivers provide such a facility.
+The following procedure can be used to produce such pages.
+\begin{enumerate}
+  \item Use the \verb"table*" or \verb"figure*" environments in your
+        document to create the space for your table or figure on the
+        appropriate page of your document. Include an empty
+        caption in this environment to ensure the correct
+        numbering of subsequent tables and figures. For instance, the
+        following code prints a page with the running head, a message
+        half way down and the figure number towards the bottom. If you
+        are including a plate, the running headline is different, and you
+        need to key in the three lines which are marked with \verb"% **",
+        with an appropriate headline.
+\begin{verbatim}
+% ** \clearpage
+% ** \thispagestyle{plate}
+% ** \plate{Opposite p.~812, GJI, \textbf{135}}
+\begin{figure*}
+  \vbox to220mm{\vfil Landscape figure to
+                go here. \vfil}
+  \caption{}
+  \label{landfig}
+\end{figure*}
+\end{verbatim}
+\item Create a separate document with the corresponding document style
+      but also with the \verb"landscape" document style option, and
+      include the \verb"\pagestyle" command, as follows:
+\begin{verbatim}
+\documentclass[landscape]{gji}
+\pagestyle{empty}
+\end{verbatim}
+  \item Include your complete tables and illustrations (or space for
+        these) with captions using the \verb"table*" and \verb"figure*"
+        environments.
+  \item Before each float environment, use the
+        \verb"\setcounter" command to ensure the correct numbering of
+        the caption. For example,
+\begin{verbatim}
+\setcounter{table}{0}
+\begin{table*}
+ \begin{minipage}{115mm}
+ \caption{Images of global seismic tomography.}
+ \label{tab1}
+ \begin{tabular}{@{}llllcll}
+   :
+ \end{tabular}
+ \end{minipage}
+\end{table*}
+\end{verbatim}
+The corresponding example for a figure would be:
+\begin{verbatim}
+\clearpage
+\setcounter{figure}{12}
+\begin{figure*}
+ \vspace{144mm}
+ \caption{Travel times for regional model.}
+ \label{fig13}
+\end{figure*}
+\end{verbatim}
+\end{enumerate}
+
+
+\section{Additional facilities}
+
+In addition to all the standard \LaTeX\ design elements, the GJI style
+includes the following features.
+\begin{enumerate}
+  \item Extended commands for specifying a short version of the title and
+        author(s) for the running headlines;
+  \item A \verb"summary" environment to produce a suitably indented
+        Summary
+  \item An \verb"abstract" environment which produces the GJI style of
+        Summary
+  \item A \verb"keywords" environment and a \verb"\nokeywords" command;
+  \item Use of the \verb"description" environment for unnumbered lists.
+  \item A starred version of the \verb"\caption" command to produce
+        captions for continued figures or tables.
+ \end{enumerate}
+ In general, once you have used the additional \verb"gji.cls" facilities
+in your document, do not process it with a standard \LaTeX\ style file.
+
+\subsection{Titles and author's name}
+
+In the GJI style, the title of the article and the author's name (or
+authors' names) are used both at the beginning of the article for the
+main title and throughout the article as running headlines at the top
+of every page. The title is used on odd-numbered pages (rectos) and the
+author's name appears on even-numbered pages (versos). Although the
+main heading can run to several lines of text, the running headline
+must be a single line ($\leqslant 45$ characters). Moreover, the main
+heading can also incorporate new line commands (e.g. \verb"\\") but
+these are not acceptable in a running headline. To enable you to
+specify an alternative short title and an alternative short author's
+name, the standard \verb"\title" and \verb"\author" commands have been
+extended to take an optional argument to be used as the running
+headline. The running headlines for this guide were produced using the
+following code:
+\begin{verbatim}
+\title[Geophys.\ J.\ Int.:
+       \LaTeXe\ Guide for Authors]
+  {Geophysical Journal International:
+   \LaTeXe\ style guide for authors}
+\end{verbatim}
+and
+\begin{verbatim}
+\author[B.L.N. Kennett]
+   {B.L.N. Kennett$^1$
+  \thanks{Pacific Region Office, GJI} \\
+  $^{1}$Research School of Earth Sciences,
+    Australian National University,
+    Canberra ACT \emph{0200}, Australia
+  }
+\end{verbatim}
+The \verb"\thanks" note produces a footnote to the title or author.
+
+\subsection{Key words and Summary}
+
+At the beginning of your article, the title should be generated in the
+usual way using the \verb"\maketitle" command. Immediately following
+the title you should include a Summary followed by a list of key
+words. The summary should be enclosed within an \verb"summary"
+environment, followed immediately by the key words enclosed in a
+\verb"keywords" environment. For example, the titles for this guide
+were produced by the following source:
+\begin{verbatim}
+\maketitle
+\begin{summary}
+ This guide is for authors who are preparing
+ papers for \textit{Geophysical Journal
+ International} using the \LaTeXe\ document
+ preparation system and the GJI style file.
+\end{summary}
+\begin{keywords}
+ \LaTeXe\ -- class files: \verb"gji.cls"\ --
+ sample text -- user guide.
+\end{keywords}
+
+\section{Introduction}
+  :
+\end{verbatim}
+The heading `\textbf{Key words}' is included automatically and the key
+words are followed by vertical space. If, for any reason, there are no
+key words, you should insert the \verb"\nokeywords" command immediately
+after the end of the \verb"summary" or \verb"abstract" environment. This
+ensures that the   vertical space after the abstract and/or title is
+correct and that any
+\verb"thanks" acknowledgments are correctly included at the bottom of
+the first column. For example,
+\begin{verbatim}
+\maketitle
+\begin{abstract}
+  :
+\end{abstract}
+\nokeywords
+
+\section{Introduction}
+  :
+\end{verbatim}
+
+Note that the \verb"summary" and \verb"abstract" environments have the same
+effect for the documentclass \verb"gji.cls"
+
+\subsection{Lists}
+
+The GJI style provides numbered lists using the \verb"enumerate"
+environment and unnumbered lists using the \verb"description"
+environment with an empty label. Bulleted lists are not part of the GJI
+style and the \verb"itemize" environment should not be used.
+
+The enumerated list numbers each list item with roman numerals:
+\begin{enumerate}
+  \item first item
+  \item second item
+  \item third item
+\end{enumerate}
+Alternative numbering styles can be achieved by inserting a
+redefinition of the number labelling command after the
+\verb"\begin{enumerate}". For example, the list
+\begin{enumerate}
+\renewcommand{\theenumi}{(\arabic{enumi})}
+  \item first item
+  \item second item
+  \item etc\ldots
+\end{enumerate}
+was produced by:
+\begin{verbatim}
+\begin{enumerate}
+ \renewcommand{\theenumi}{(\arabic{enumi})}
+  \item first item
+       :
+\end{enumerate}
+\end{verbatim}
+Unnumbered lists are provided using the \verb"description" environment.
+For example,
+\begin{description}
+  \item First unnumbered item which has no label and is indented from
+        the left margin.
+  \item Second unnumbered item.
+  \item Third unnumbered item.
+\end{description}
+was produced by,
+\begin{verbatim}
+\begin{description}
+ \item First unnumbered item...
+ \item Second unnumbered item.
+ \item Third unnumbered item.
+\end{description}
+\end{verbatim}
+
+\subsection{Captions for continued figures and tables}
+
+The \verb"\caption*" command may be used to produce a caption with the
+same number as the previous caption (for the corresponding type of
+float). For instance, if a very large table does not fit on one page,
+it must be split into two floats; the second float should use the
+\verb"caption*" command with a suitable caption:
+\begin{verbatim}
+\begin{table}
+ \caption*{-- \textit{continued}}
+  \begin{tabular}{@{}lccll}
+  :
+  \end{tabular}
+\end{table}
+\end{verbatim}
+
+ \begin{figure}
+     \vspace{5.5cm}
+     \caption{An example figure in which space has been
+              left for the artwork.}
+     \label{sample-figure}
+  \end{figure}
+
+\section[]{Some guidelines for using\\* standard facilities}
+
+The following notes may help you achieve the best effects with the GJI
+style file.
+
+\subsection{Sections}
+
+\LaTeX\ provides five levels of section headings and they are all
+defined in the GJI style file:
+\begin{description}
+  \item \verb"\section"
+  \item \verb"\subsection"
+  \item \verb"\subsubsection"
+  \item \verb"\paragraph"
+  \item \verb"\subparagraph"
+\end{description}
+Section numbers are given for section, subsection, subsubsection
+and paragraph headings.  Section headings are automatically converted to
+upper case; if you need any other style, see the example in section~\ref{headings}.
+
+If you find your section/subsection (etc.)\ headings are wrapping round,
+you must use the \verb"\\*" to end individual lines and include the
+optional argument \verb"[]" in the section command. This ensures that
+the turnover is flushleft.
+
+\subsection{Illustrations (or figures)}
+
+\begin{figure*}
+ \vspace{5.5cm}
+     \caption{An example figure spanning two-columns
+             in which space has been left for the artwork.}
+     \label{twocol-figure}
+\end{figure*}
+
+The GJI style will cope with positioning of your illustrations and
+you should not use the positional qualifiers on the
+\verb"figure" environment which would override these decisions. See
+`Instructions for Authors' in {\em Geophysical Journal International\/}
+for submission of
+artwork. Figure captions should be below the figure itself, therefore
+the \verb"\caption" command should appear after the figure or space
+left for an illustration. For example, Fig.~\ref{sample-figure} is
+produced using the following commands:
+\begin{verbatim}
+\begin{figure}
+ \vspace{5.5cm}
+ \caption{An example figure in which space has
+          been left for the artwork.}
+ \label{sample-figure}
+\end{figure}
+\end{verbatim}
+
+Where a figure needs to span two-columns the \verb"figure*" environment
+should be used as in  Fig.~\ref{twocol-figure} using the following commands
+\begin{verbatim}
+\begin{figure*}
+ \vspace{5.5cm}
+   \caption{An example figure spanning two-columns
+     in which space has been left for the artwork.}
+   \label{twocol-figure}
+\end{figure*}
+\end{verbatim}
+
+\subsection{Tables}
+
+The GJI style will cope with positioning of your tables and you
+should not use the positional qualifiers on the
+\verb"table" environment which would override these decisions. Table
+captions should be at the top, therefore the \verb"\caption" command
+should appear before the body of the table.
+
+The \verb"tabular" environment can be used to produce tables with
+single horizontal rules, which are allowed, if desired, at the head and
+foot only. This environment has been modified for the GJI style in the
+following ways:
+\begin{enumerate}
+  \item additional vertical space is inserted on either side of a rule;
+  \item vertical lines are not produced.
+\end{enumerate}
+Commands to redefine quantities such as \verb"\arraystretch" should be
+omitted. For example, Table~\ref{symbols} is produced using the
+following commands.
+\begin{table}
+ \caption{Seismic velocities at major discontinuities.}
+ \label{symbols}
+ \begin{tabular}{@{}lcccccc}
+  Class & depth & radius
+        & $\alpha _{-}$ & $\alpha _{+}$
+        & $\beta _{-}$ & $\beta _{+}$ \\
+  ICB & 5154 & 1217 & 11.091 & 10.258
+        & 3.438 &  0. \\
+  CMB & 2889 & 3482 & 8.009 & 13.691
+        & 0. & 7.301 \\
+ \end{tabular}
+
+ \medskip
+ The ICB represents the boundary between the inner and outer cores and
+the CMB the boundary between the core and the mantle.  Velocities with
+subscript $-$ are evaluated just below the discontinuity and
+those with subscript $+$ are evaluated just above the discontinuity.
+\end{table}
+\begin{verbatim}
+\begin{table}
+ \caption{Seismic velocities at major
+          discontinuities.}
+ \label{symbols}
+ \begin{tabular}{@{}lcccccc}
+  Class & depth & radius
+        & $\alpha _{-}$ & $\alpha _{+}$
+        & $\beta _{-}$ & $\beta _{+}$ \\
+  ICB & 5154 & 1217 & 11.091 & 10.258
+        & 3.438 &  0. \\
+  CMB & 2889 & 3482 & 8.009 & 13.691
+        & 0. & 7.301 \\
+ \end{tabular}
+
+ \medskip
+ The ICB represents the boundary ...
+... evaluated just above the discontinuity.
+
+\end{table}
+\end{verbatim}
+
+If you have a table that is to extend over two columns, you need to use
+\verb"table*" in a minipage environment, i.e., you can say
+\begin{verbatim}
+\begin{table*}
+\begin{minipage}{80mm}
+ \caption{Caption which will wrap round to the
+          width of the minipage environment.}
+ \begin{tabular}{%
+      :
+ \end{tabular}
+\end{minipage}
+\end{table*}
+\end{verbatim}
+The width of the minipage should more or less be the width of your table,
+so you can only guess on a value on the first pass. The value will have to
+be adjusted when your article is finally typeset, so don't worry
+about making it the exact size.
+
+\subsection{Running headlines}
+
+As described above, the title of the article and the author's name (or
+authors' names) are used as running headlines at the top of every page.
+The headline on right pages can list up to three names; for more than
+three use et~al. The \verb"\pagestyle" and \verb"\thispagestyle"
+commands should {\em not\/} be used. Similarly, the commands
+\verb"\markright" and \verb"\markboth" should not be necessary.
+
+\subsection{Typesetting mathematics}
+
+\subsubsection{Displayed mathematics}
+
+The GJI style will set displayed mathematics flush with the left margin,
+provided that you use the \LaTeX\ standard of open and closed square brackets
+as delimiters. The equation
+\[
+ \sum_{i=1}^p \lambda_i =
+{\mathrm{trace}}(\mathbf{S})
+\]
+was typeset in the GJI style using the commands
+\begin{verbatim}
+\[
+ \sum_{i=1}^p \lambda_i =
+{\mathrm{trace}}(\mathbf{S})
+\]
+\end{verbatim}
+This correct positioning should be compared with that for
+the following centred equation,
+$$ \alpha_{j+1} > \bar{\alpha}+ks_{\alpha} $$
+which was (wrongly) typeset using double dollars as follows:
+\begin{verbatim}
+$$ \alpha_{j+1} > \bar{\alpha}+ks_{\alpha} $$
+\end{verbatim}
+Note that \verb"\mathrm" will produce a roman character
+in math mode.
+
+For numbered equations use the \verb"equation" and \verb"eqnarray"
+environments which will give the correct positioning.
+If equation numbering by section is required the command
+\verb"\eqsecnum" should appear after \verb"begin{document}"
+at the head of the file.
+
+\subsubsection{Bold math italic}\label{boldmathitalic}
+
+The class file provides a font \verb"\mitbf" defined as:
+\begin{verbatim}
+\newcommand{\mitbf}[1]{
+  \hbox{\mathversion{bold}$#1$}}
+\end{verbatim}
+Which can be used as follows, to typset the equation
+\begin{equation}
+  d(\mitbf{{s_{t_u}}}) = \langle [RM(\mitbf{{x_y}}
+  + \mitbf{{s_t}}) - RM(\mitbf{{x_y}})]^2 \rangle
+\end{equation}
+the input should be
+\begin{verbatim}
+\begin{equation}
+  d(\mitbf{{s_{t_u}}}) = \langle [RM(\mitbf{{x_y}}
+  + \mitbf{{s_t}}) - RM(\mitbf{{x_y}})]^2 \rangle
+\end{equation}
+\end{verbatim}
+
+If you are using version 1 of the New Font Selection Scheme, you may
+have some messages in your log file that read something like ``Warning:
+Font/shape `cmm/b/it' in size~\hbox{$< \!\! 9 \!\! >$} not available
+on input line 649. Warning: Using external font `cmmi9' instead on input
+line 649.'' If you have such messages, your system will have substituted
+math italic characters where you wanted bold math italic ones: you
+are advised to upgrade to version 2.
+
+
+\subsubsection{Bold Greek}\label{boldgreek}
+
+To get bold Greek you use the same
+method as for bold math italic. Thus you can input
+\begin{verbatim}
+\[ \mitbf{{\alpha_{\mu}}} =
+\mitbf{\Theta} \alpha. \]
+\end{verbatim}
+to typeset the equation
+\[ \mitbf{{\alpha_{\mu}}} = \mitbf{\Theta} \alpha . \]
+
+
+\subsection{Points to note in formatting text}\label{formtext}
+
+A number of text characters require special attention
+so that \LaTeX\ can properly format a file.
+
+The following characters must be preceded by a
+backslash or \LaTeX\ will interpret them as commands:
+\begin{quote}
+~~~~~~~~~\$~~~\&~~~\%~~~\#~~~\_~~~\{~~~and~~~\}
+\end{quote}
+must be typed
+\begin{center}
+\begin{quote}
+~~~~~~\verb"\$"~~~\verb"\&"~~~\verb"\%"~~~\verb"\#"
+~~~\verb"\_"~~~\verb"\{"~~~and~~~\verb"\}".
+\end{quote}
+\end{center}
+
+\LaTeX\ interprets all double quotes as closing quotes.
+Therefore quotation marks must be typed as pairs of
+opening and closing single quotes, for example,
+\texttt{ ``quoted text.''}
+
+Note that \LaTeX\ will not recognize greater than or
+less than symbols unless they are typed within math
+commands (\verb"$>$" or \verb"$<$").
+
+\subsubsection{Special symbols}
+
+The macros for the special symbols in Tables~\ref{mathmode}
+and~\ref{anymode}
+have been taken from the Springer Verlag `Astronomy and Astrophysics'
+design, with their permission. They are directly compatible and use the
+same macro names.
+These symbols will work in all text sizes, but are only guaranteed to work
+in text and displaystyles. Some of the symbols will not get any smaller
+when they are used in sub- or superscripts, and will therefore be
+displayed at the wrong size. Don't worry about this as the typesetter
+will be able to sort this out.
+%
+\begin{table*}
+\begin{minipage}{106mm}
+\caption{Special symbols which can only be used in math mode.}
+\label{mathmode}
+\begin{tabular}{@{}llllll}
+Input & Explanation & Output & Input & Explanation & Output\\
+\hline
+\verb"\la"     & less or approx       & $\la$     &
+  \verb"\ga"     & greater or approx    & $\ga$\\[2pt]
+\verb"\getsto" & gets over to         & $\getsto$ &
+  \verb"\cor"    & corresponds to       & $\cor$\\[2pt]
+\verb"\lid"    & less or equal        & $\lid$    &
+  \verb"\gid"    & greater or equal     & $\gid$\\[2pt]
+\verb"\sol"    & similar over less    & $\sol$    &
+  \verb"\sog"    & similar over greater & $\sog$\\[2pt]
+\verb"\lse"    & less over simeq      & $\lse$    &
+  \verb"\gse"    & greater over simeq   & $\gse$\\[2pt]
+\verb"\grole"  & greater over less    & $\grole$  &
+  \verb"\leogr"  & less over greater    & $\leogr$\\[2pt]
+\verb"\loa"    & less over approx     & $\loa$    &
+  \verb"\goa"    & greater over approx  & $\goa$\\
+\hline
+\end{tabular}
+\end{minipage}
+\end{table*}
+%
+\begin{table*}
+\begin{minipage}{115mm}
+\caption{Special symbols which don't have to be
+used in math mode.}
+\label{anymode}
+\begin{tabular}{@{}llllll}
+Input & Explanation & Output & Input & Explanation & Output\\
+\hline
+\verb"\sun"      & sun symbol            & $\sun$     &
+  \verb"\earth"     & earth symbol         & $\earth$   \\[2pt]
+\verb"\degr"     & degree                &$\degr$     &
+  \verb"\micron"   & \micron               & \micron    \\[2pt]
+\verb"\diameter" & diameter              & \diameter  &
+  \verb"\sq"       & square                & \squareforqed\\[2pt]
+\verb"\fd"       & fraction of day       & \fd        &
+  \verb"\fh"       & fraction of hour      & \fh\\[2pt]
+\verb"\fm"       & fraction of minute    & \fm        &
+  \verb"\fs"       & fraction of second    & \fs\\[2pt]
+\verb"\fdg"      & fraction of degree    & \fdg       &
+  \verb"\fp"       & fraction of period    & \fp\\[2pt]
+\verb"\farcs"    & fraction of arcsecond & \farcs     &
+  \verb"\farcm"    & fraction of arcmin    & \farcm\\[2pt]
+\verb"\arcsec"   & arcsecond             & \arcsec    &
+  \verb"\arcmin"   & arcminute             & \arcmin\\
+
+\hline
+\end{tabular}
+\end{minipage}
+\end{table*}
+
+
+The command \verb"\chemical" is provided to set chemical species with
+an even level for subscripts (not produced in standard mathematics mode).
+Thus \verb"\chemical{Fe_{2}^{2+}Cr_{2}O_{4}}" will produce
+\chemical{Fe_{2}^{2+}Cr_{2}O_{4}}.
+
+
+\subsection{Bibliography}
+
+Two methods are provided for managing citations and
+references.   The first approach uses the
+\verb"\begin{thebibliography}{}"
+and \verb"\end{thebibliography}{}" commands.
+
+The second approach uses a simplified scheme using
+\verb"\begin{references}" and \verb"\end{references}" commands.
+
+References to published literature should be quoted in text by author
+and date; e.g. Draine (1978) or (Begelman, Blandford \& Rees 1984).
+Where more than one reference is cited having the same author(s) and date,
+the letters a,b,c, \ldots\ should follow the date; e.g.\ Smith (1988a),
+Smith (1988b), etc.
+The first time you introduce a three-author paper, you should list all
+three authors at the first citation, and thereafter, use et al.
+
+\subsubsection{Biblography References in the text}
+
+References in the text are given by author and date, and, whichever
+method is used to produce the bibliography, the references in the text
+are done in the same way. Each bibliographical entry has a key, which
+is assigned by the author and used to refer to that entry in the text.
+There is one form of citation -- \verb"\cite{key}" -- to produce the
+author and date, and another form -- \verb"\shortcite{key}" -- which
+produces the date only. Thus, Rutherford \& Hawker \shortcite{rh} is
+produced by
+\begin{verbatim}
+Rutherford \& Hawker \shortcite{rh}
+\end{verbatim}
+while \cite{hi} is produced by
+\begin{verbatim}
+\cite{hi}
+\end{verbatim}
+
+\subsubsection{The bibliography}
+
+The following listing shows some references prepared in the style of
+the journal; the code produces the references at the end of this guide.
+The following rules apply for the ordering of your references:
+\begin{enumerate}
+  \item if an author has written several papers, some with other authors,
+        the rule is that the single-author papers precede the two-author
+        papers, which, in turn, precede the multi-author papers;
+  \item within the two-author paper citations, the order is determined
+        by the second author's surname, regardless of date;
+  \item within the multi-author paper citiations, the order is
+        chronological, regardless of author's surnames.
+\end{enumerate}
+%
+\begin{verbatim}
+\begin{thebibliography}{}
+  \bibitem[\protect\citename{Butcher }1992]{bu}
+    Butcher J. 1992. \textit{Copy-editing: The
+    Cambridge Handbook}, 3rd edn, Cambridge
+    Univ. Press, Cambridge.
+  \bibitem[\protect\citename{The Chicago Manual }%
+    1982]{cm} \textit{The Chicago Manual of Style},
+    Univ. Chicago Press, Chicago, 1982.
+  \bibitem[\protect\citename{Chao }1985]{ch}
+    Chao, B. F., 1985. Normal mode study of the
+    Earth's rigid body motions,
+    \textit{Geophys. Res. Lett.}, \textbf{12}, 526-529.
+  \bibitem[\protect\citename{Hinderer }1986]{hi}
+    Hinderer, J., 1986. Resonance effects of the
+    earth's fluid core in earth rotation,
+    in \textit{Solved and Unsolved Problems},
+    pp. 277-296, ed. Cazenave A., Reidel,
+    Dordrecht.
+  \bibitem[\protect\citename{Lamport }1986]{la}
+    Lamport L., 1986,  \LaTeX: \textit{A Document
+    Preparation System}, Addison--Wesley, New York
+  \bibitem[\protect\citename{Lindberg }1986]{li}
+    Lindberg, C., 1986.  Multiple taper harmonic
+    analysis of terrestrial free oscillations,
+    \textit{PhD thesis}, University of California.
+  \bibitem[\protect\citename{Maupin }1992]{ma}
+    Maupin, V., 1992. Modelling of laterally
+    trapped surface waves with application to
+    Rayleigh waves in the Hawaiian swell,
+    \textit{Geophys. J. Int.}, \textbf{110}, 553-570.
+  \bibitem[\protect\citename{Rutherford
+    \& Hawker }1981]{rh} Rutherford, S. R.
+    \& Hawker, K. E.,  1981, Consistent coupled
+    mode theory of sound propagation for a
+    class of non-separable problems,
+    \textit{J. acoust. Soc. Am.}, \textbf{71},
+    554-564
+\end{thebibliography}
+\end{verbatim}
+Each entry takes the form
+\begin{verbatim}
+\bibitem[\protect\citename{Author(s), }%
+  Date]{tag} Bibliography entry
+\end{verbatim}
+where \verb"Author(s)" should be the author names as they are cited in
+the text, \verb"Date" is the date to be cited in the text, and
+\verb"tag" is the tag that is to be used as an argument for the
+\verb"\cite{}" and \verb"\shortcite{}" commands. \verb"Bibliography entry"
+should be the material that is to appear in the bibliography,
+suitably formatted.
+
+\subsubsection{Simplified References and Citations}
+
+The second approach to referencing is taken with permission from
+the American Geophysical Union Latex macros
+
+The reference section is started using a
+\verb"\begin{references}" command which will
+automatically produce a correctly formatted
+``Reference'' head.  Each reference is then
+preceded by a \verb"\reference"
+command.  It is the author's
+responsibility to place bibliographic reference
+information in the proper order with correct
+punctuation.  After the last reference in your
+reference section, type an \verb"\end{references}"
+command.
+
+Authors may enter properly formatted citations directly
+in the manuscript text and enclose those citations in
+\verb"\markcite{}" commands.  This approach
+marks all citations in your manuscript, but there
+is no interaction between the \verb"\markcite"
+commands and the reference section.
+
+To create in-text citations, enclose each citation
+within a \verb"\markcite" command.
+There are two ways to include in-text citations,
+depending on the way you phrase your sentence.
+You may either include an entire reference within
+brackets \markcite{(Merritt et al., 1996)} or you
+may mention the author as part of your sentence and
+include only the year in brackets, as in \markcite{Ono (1996)}.
+
+As an example
+\begin{verbatim}
+\begin{references}
+\reference
+Azimi, Sh.A., Kalinin, A.Y., Kalinin, V.B.,
+\& Pivovarov, B.L., 1968.
+Impulse and transient characteristics of media
+with linear and quadratic absorption laws,
+\textit{Izv. Earth Phys.} (English Transl.),
+\textbf{2}, 88--93.
+\reference
+Dahlen, F.A., \& Smith, M.L., 1975.
+The influence of rotation on the free
+oscillations of the Earth,
+\textit{Phil. Trans. R. Soc. London Ser. A},
+\textbf{279}, 143--167.
+\reference
+Durek, J.J., Ritzwoller, M.H.,
+\& Woodhouse, J.H., 1993.
+Constraining upper mantle anelasticity
+using surface wave amplitude anomalies,
+\gji, \textbf{114}, 249--272.
+\end{references}
+\end{verbatim}
+produces the reference list
+\begin{references}
+ \reference
+Azimi, Sh.A., Kalinin, A.Y., Kalinin, V.B.,
+\& Pivovarov, B.L., 1968.
+Impulse and transient characteristics of media
+with linear and  quadratic absorption laws,
+\textit{Izv. Earth Phys.} (English Transl.),
+\textbf{2}, 88--93.
+\reference
+Dahlen, F.A., \& Smith, M.L., 1975.
+The influence of rotation on the free oscillations of the Earth,
+\textit{Phil. Trans. R. Soc. London Ser. A}, \textbf{279}, 143--167.
+\reference
+Durek, J.J., Ritzwoller, M.H., \& Woodhouse, J.H., 1993.
+Constraining upper mantle anelasticity
+using surface wave amplitude anomalies,
+\gji \textbf{114}, 249--272.
+\end{references}
+
+\subsubsection{Common Journals}
+
+The following abbreviations are provided for commonly cited
+journals and can be used directly in the bibliography.
+
+In the following table the abbreviation and the form of the
+associated entry are presented
+\newline
+\begin{tabular}{ll}
+\verb"\areps" & \areps \\
+\verb"\bssa"  & \bssa \\
+\verb"\eos"   & \eos  \\
+\verb"\eps"   & \eps \\
+\verb"\epsl"  & \epsl \\
+\verb"\gca"   & \gca \\
+\verb"\geo"   & \geo \\
+\verb"\geop"  & \geop \\
+\verb"\gji"   & \gji \\
+\verb"\gjras" & \gjras \\
+\verb"\grl"   & \grl \\
+\verb"\gsab"  & \gsab \\
+\verb"\gs"    & \gs \\
+\verb"\jgr"   & \jgr \\
+\verb"\jseis" & \jseis \\
+\verb"\mnras" & \mnras \\
+\verb"\pag"   & \pag \\
+\verb"\pepi"  & \pepi \\
+\verb"\rg"    & \rg \\
+\verb"\tecto" & \tecto \\
+\end{tabular}
+%
+% The following two tables have been moved back in the text to
+% improve page layout
+%
+\begin{table*}
+\begin{minipage}{130mm}
+\caption{Authors' notes.}
+\label{authors}
+\begin{tabular}{@{}ll}
+\verb"\title[optional short title]{long title}"
+                    & short title used in running head\\
+\verb"\author[optional short author(s)]{long author(s)}"
+                    & short author(s) used in running head\\
+\verb"\begin{abstract}...\end{abstract}"& for summary on
+titlepage\\
+\verb"\begin{summary}...\end{summary}"& for abstract on
+titlepage\\
+\verb"\begin{keywords}...\end{keywords}"& for keywords on titlepage\\
+\verb"\nokeywords"  & if there are no keywords on titlepage\\
+\verb"\begin{figure*}...\end{figure*}" & for a double spanning figure in two-column mode\\
+\verb"\begin{table*}...\end{table*}" & for a double spanning table in
+                                       two-column mode\\
+\verb"\caption*"    & for continuation figure captions\\
+\verb"\resetfigno" & resets figures numbers after an appendix\\
+\verb"[referee]" & documentclass option for 12/20pt, single col,
+                   for manuscript submission\\
+\verb"[mreferee]" & documentclass option for 11/17pt, single col,
+                   for submission of papers with extensive mathematics\\
+\end{tabular}
+\end{minipage}
+\end{table*}
+%
+\begin{table*}
+\begin{minipage}{130mm}
+\caption{Editors' notes.}
+\label{editors}
+\begin{tabular}{@{}lp{270pt}}
+\verb"\pagerange{000--000}"& for catchline, note use of en-rule\\
+\verb"\pagerange{L00--L00}"& for letters option, used in catchline\\
+\verb"\volume{000}" & volume number, for catchline\\
+\verb"\pubyear{0000}" & publication year, for catchline\\
+\verb"\microfiche{GJI000/0}" & for articles accompanied by microfiche\\
+\verb"\journal" & replace the whole catchline at one go\\
+\verb"[doublespacing]" & documentclass option for doublespacing\\
+\verb"[galley]" & documentclass option for running to galley\\
+\verb"[landscape]" & documentclass option for landscape illustrations\\
+\verb"[fasttrack]" & documentclass option, for rapid short communications
+                   (adds F to folios)\\
+\verb"[onecolumn]" & documentclass option for one-column \\
+\verb"\bsp"& typesets the final phrase `This paper has been produced
+ using the Blackwell Publishing GJI \LaTeX2e\ class file.'\\
+\end{tabular}
+\end{minipage}
+\end{table*}
+
+\subsection{Appendices}
+
+The appendices in this guide were generated by typing:
+\begin{verbatim}
+\appendix
+\section{For authors}
+     :
+\section{For editors}
+\end{verbatim}
+You only need to type \verb"\appendix" once. Thereafter, every
+\verb"\section" command will generate a new appendix which will be
+numbered A, B, etc.
+
+If figure captions are to provided after an appendix the figure number can
+be reset to avoid extraneous labelling using the command
+\verb"\resetfigno".
+
+\section[]{Example of section heading with\\*
+  {\mdseries \textsc{S}\lowercase{\textsc{mall}}
+  \textsc{C}\lowercase{\textsc{aps}}},
+  \lowercase{lowercase},
+  \textit{ italic}, and bold\\* Greek such as
+  $\mitbf{{\mu^\kappa}}$}\label{headings}
+
+This can be built up using text commands and the \verb"mitbf"
+command introduced above
+
+\begin{verbatim}
+\section[]{Example of section heading with\\*
+  {\mdseries \textsc{S}\lowercase{\textsc{mall}}
+  \textsc{C}\lowercase{\textsc{aps}}},
+  \lowercase{lowercase},
+  \textit{ italic}, and bold\\* Greek such as
+  $\mitbf{{\mu^\kappa}}$}\label{headings}
+\end{verbatim}
+
+\subsection{Acknowledgments}
+Acknowledgments after the main text and before the appendices can be
+included with the
+\texttt{acknowledgments} environment, as
+\begin{verbatim}
+\begin{acknowledgments}
+We wish to thank ...
+\end{acknowledgments}
+\end{verbatim}
+There is also a corresponding \texttt{acknowledgment} environment for a
+single acknowledgment.
+
+\begin{acknowledgments}
+A number of colleagues have helped with suggestions for the
+improvement of this material and I would particularly like to thank
+Bob Geller, University of Tokyo for his criticisms and corrections.
+\end{acknowledgments}
+
+\begin{thebibliography}{}
+  \bibitem[\protect\citename{Butcher }1992]{bu}
+    Butcher J. 1992. \textit{Copy-editing: The Cambridge
+    Handbook}, 3rd edn, Cambridge Univ. Press, Cambridge.
+  \bibitem[\protect\citename{The Chicago Manual }%
+    1982]{cm} \textit{The Chicago Manual of Style}, Univ.
+    Chicago Press, Chicago, 1982.
+  \bibitem[\protect\citename{Chao }1985]{ch}
+    Chao, B. F., 1985. Normal mode study of the Earth's rigid
+     body motions, \textit{Geophys. Res. Lett.}, \textbf{12}, 526-529.
+  \bibitem[\protect\citename{Hinderer }1986]{hi}
+    Hinderer, J., 1986. Resonance effects of the earth's fluid
+    core in earth rotation, in \textit{Solved and Unsolved
+    Problems}, pp. 277-296, ed. Cazenave A., Reidel,
+    Dordrecht.
+  \bibitem[\protect\citename{Kopka \& Daly}1995]{kd}
+    Kopka H. \& Daly P.W., 1995, \textit{A guide to} \LaTeX2e,
+    Addison--Wesley, New York
+  \bibitem[\protect\citename{Lamport }1986]{la}
+    Lamport L., 1986,  \LaTeX: \textit{A Document
+    Preparation System}, Addison--Wesley, New York
+  \bibitem[\protect\citename{Lindberg }1986]{bl}
+    Lindberg, C., 1986.  Multiple taper harmonic analysis of
+    terrestrial free oscillations, \textit{PhD thesis},
+    University of California.
+  \bibitem[\protect\citename{Maupin }1992]{ma}
+    Maupin, V., 1992. Modelling of laterally trapped surface
+    waves with application to Rayleigh waves in the Hawaiian
+    swell, \textit{Geophys. J. Int.}. \textbf{110}, 553-570.
+  \bibitem[\protect\citename{Rutherford \& Hawker }%
+    1981]{rh}  Rutherford, S. R. \& Hawker, K. E., 1981,
+    Consistent coupled mode theory of sound propagation for a
+    class of non-separable problems,
+   \textit{J. acoust. Soc. Am.}, \textbf{71}, 554-564
+\end{thebibliography}
+
+
+\appendix
+\section{For authors}
+
+Table~\ref{authors} is a list of design macros which are unique to GJI. The
+list displays each macro's name and description.
+
+\section{For editors}
+
+The additional features shown in Table~\ref{editors} may be used for
+production purposes.
+
+\bsp % ``This paper has been produced using the Blackwell
+     %   Publishing GJI \LaTeXe\ class file.''
+
+\label{lastpage}
+
+
+\end{document}
