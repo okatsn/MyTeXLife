@@ -1,8 +1,5 @@
 FROM qmcgaw/latexdevcontainer:latest-full
 
-ENV DEBIAN_FRONTEND=noninteractive
-
-
 RUN apt-get update && apt-get -y install \
     libfontconfig libfontconfig1 \
     ghostscript
