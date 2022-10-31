@@ -5,6 +5,7 @@ services:
     build: .
     image: latexdevcontainer
     volumes:
+      # The home directory is called "workspace"; try `cd ..` and `ls` to figure it out.
       - ../:/workspace
       # Docker socket to access Docker server
       - /var/run/docker.sock:/var/run/docker.sock
@@ -20,4 +21,3 @@ services:
     environment:
       - TZ=
     entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
- 
