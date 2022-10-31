@@ -17,9 +17,15 @@ Additional vscode extensions and settings (includes a set of default LaTeX recip
 - Anything in *projects* will be git-ignored.
 
 ## Hints
+
+### Install other applications in container OS
 Based on [qdm12/latexdevcontainer](https://github.com/qdm12/latexdevcontainer), you may install extra applications for example::
 ```bash
 apt-get update
 apt-get install libfontconfig1
 apt-get -y install ghostscript
 ```
+
+### Manage git repositories
+- `git clone https://github.com/yourname/ACertainArticle.git`
+- `Ctrl+Shift+P` and type "GPM" (for [felipecaputo.git-project-manager](https://github.com/felipecaputo/git-project-manager)) to open sub-repositories in a new window.

@@ -1,5 +1,5 @@
 {
-    "name": "MyTexLife-workspace",
+    "name": "MyTexLife",
     "dockerComposeFile": [
         "docker-compose.yml"
     ],
@@ -26,6 +26,7 @@
         "mhutchie.git-graph",
         "donjayamanne.githistory",
         "github.vscode-pull-request-github",
+        "felipecaputo.git-project-manager",
         "eamodio.gitlens",
         "mathieu.vscode-github-actions",
         // format and highlight
@@ -40,8 +41,12 @@
     "settings": {
         // General settings
         "files.eol": "\n",
+        // GPM
         // Latex settings
-        "latex-workshop.chktex.enabled": true,
+        "gitProjectManager.baseProjectsFolders": [
+            "/workspace/projects"
+        ], // this allows GPM (felipecaputo.git-project-manager) to open repo in the "projects" in a new window
+        "latex-workshop.linting.chktex.enabled": true,
         "latex-workshop.latex.clean.subfolder.enabled": true,
         "latex-workshop.latex.autoClean.run": "onBuilt",
         "editor.formatOnSave": true,
