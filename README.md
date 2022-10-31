@@ -27,5 +27,9 @@ apt-get -y install ghostscript
 ```
 
 ### Manage git repositories
+Clone your project into "workspace/projects"
+- `cd projects`
 - `git clone https://github.com/yourname/ACertainArticle.git`
-- `Ctrl+Shift+P` and type "GPM" (for [felipecaputo.git-project-manager](https://github.com/felipecaputo/git-project-manager)) to open sub-repositories in a new window.
+
+Open your project in a new window using GPM
+- `Ctrl+Shift+P` and type "GPM" (for [felipecaputo.git-project-manager](https://github.com/felipecaputo/git-project-manager)) to open sub-repositories (detected only if they are under "projects") in a new window.
