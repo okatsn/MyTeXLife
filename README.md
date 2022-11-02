@@ -1,9 +1,9 @@
-# MyTexLife
-Forked from [Latex Dev Container (qdm12/latexdevcontainer)](https://github.com/qdm12/latexdevcontainer), [okatsn/MyTexLife](https://github.com/okatsn/MyTeXLife.git) aims for a Docker image of complete TexLive suites and extra functions of vscode and others; thus the image to be build is quite large.
+# MyTeXLife
+Forked from [Latex Dev Container (qdm12/latexdevcontainer)](https://github.com/qdm12/latexdevcontainer), [okatsn/MyTeXLife](https://github.com/okatsn/MyTeXLife.git) aims for a Docker image of complete TexLive suites and extra functions of vscode and others; thus the image to be build is quite large.
 
 
 
-In comparison, [okatsn/MyTexLife](https://github.com/okatsn/MyTeXLife.git) provides a "texlive-full" environment with default recipes for dealing with the most complex LaTeX documents of academic writing.
+In comparison, [okatsn/MyTeXLife](https://github.com/okatsn/MyTeXLife.git) provides a "texlive-full" environment with default recipes for dealing with the most complex LaTeX documents of academic writing.
 In addition, the following apps will also be pre-installed at the building stage:
 - `ghostscript` for handling eps files
 - `libfontconfig1`
