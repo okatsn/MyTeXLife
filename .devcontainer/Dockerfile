@@ -9,3 +9,20 @@ RUN apt-get update && apt-get -y install \
     # inkscape is for including svg; but ["The smoothest route"](https://danmackinlay.name/notebook/latex.html#svg) that converts SVG into PDF+TeX seems very unsuitable for submitting to an academic journal.
 
 # Install `chktex` does no help the the warning: usr/local/bin/chktex: WARNING -- Could not find global resource file.
+
+# Install Starship
+RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
+    && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
+    && mkdir -p ~/.config \
+    && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
+
+# CHECKPOINT: FIX PERMISSION
+# Now I'm trying rebuild this container and reclone the projects with a different user.
+#
+# Useful commands:
+# # List all user/group
+# awk -F: '{printf "%s:%s\n",$1,$3}' /etc/passwd
+# # Add new user
+# groupadd -g 1000 okatsn
+#
+# KEYNOTE: Currently, I cannot move/delete files in the project in /projects via neither windows file explorer nor vscode WSL interface. Very likely the permissions are denied because project are `git cloned` by `root`, not the user `okatsn` (the user of WSL).
