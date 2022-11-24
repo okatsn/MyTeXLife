@@ -18,20 +18,20 @@ RUN apt-get update && apt-get -y install \
 # FIXPERM: copy the file ".devcontainer/fix-permissions" to local machine for later call
 # - also see https://www.cnblogs.com/sparkdev/p/9573248.html for "building context"
 COPY fix-permissions /usr/local/bin/fix-permissions
-
+RUN chmod a+rx /usr/local/bin/fix-permissions
 
 
 
 # CHECKPOINT: FIX PERMISSION
 # Now I'm trying rebuild this container and reclone the projects with a different user.
 # KEYNOTE: Currently, I cannot move/delete files in the project in /projects via neither windows file explorer nor vscode WSL interface. Very likely the permissions are denied because project are `git cloned` by `root`, not the user `okatsn` (the user of WSL).
-# 
+#
 #
 # Useful commands:
 # # List all user/group
 # awk -F: '{printf "%s:%s\n",$1,$3}' /etc/passwd
 # See https://askubuntu.com/questions/645236/command-to-list-all-users-with-their-uid
-# 
+#
 # # Get Environment Variable from Docker Container
 # docker exec container env
 # See https://stackoverflow.com/questions/34051747/get-environment-variable-from-docker-container
@@ -84,5 +84,3 @@ RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
 
 RUN fix-permissions $WORKSPACE_DIR
 # Also see [ENTRYPOINT](https://stackoverflow.com/questions/34549859/run-a-script-in-dockerfile)
-
-
