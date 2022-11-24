@@ -80,7 +80,7 @@ RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
     fix-permissions $WORKSPACE_DIR
 
 ## Switch to user
-# USER $NB_UID
+USER $NB_UID
 
 # # Install Starship
 # RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
