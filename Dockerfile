@@ -67,22 +67,13 @@ RUN tlmgr install latexindent latexmk && \
     texhash && \
     rm /usr/local/texlive/${TEXLIVE_VERSION}/texmf-var/web2c/*.log && \
     rm /usr/local/texlive/${TEXLIVE_VERSION}/tlpkg/texlive.tlpdb.main.*
-COPY --from=chktex /tmp/chktex /usr/local/bin/chktex
+# COPY --from=chktex /tmp/chktex /usr/local/bin/chktex
 COPY shell/.zshrc-specific shell/.welcome.sh /root/
 # Verify binaries work and have the right permissions
 RUN tlmgr version && \
     latexmk -version && \
     texhash --version && \
-    chktex --version
+    # chktex --version
 
-
-
-# Install `chktex` does no help the the warning: usr/local/bin/chktex: WARNING -- Could not find global resource file.
 RUN apt-get update && apt-get -y install \
-    libfontconfig libfontconfig1 \
-    ghostscript \
     chktex
-
-    # libfontconfig1 is for ... I don't know. But without it, my LaTeX compliation failed
-    # ghostscript for handling eps image files
-    # inkscape is for including svg; but ["The smoothest route"](https://danmackinlay.name/notebook/latex.html#svg) that converts SVG into PDF+TeX seems very unsuitable for submitting to an academic journal.
