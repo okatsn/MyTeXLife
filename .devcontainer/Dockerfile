@@ -82,8 +82,9 @@ RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
 ## Switch to user
 # USER $NB_UID
 
-# Install Starship
-RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
-    && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
-    && mkdir -p ~/.config \
-    && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
+# # Install Starship
+# RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
+#     && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
+#     && mkdir -p ~/.config \
+#     && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
+# KENOTE: (2022-11-24) Starship can be installed but it seemly didn't worked; the interface of terminal remains the style of qmcgaw/latexdevcontainer
