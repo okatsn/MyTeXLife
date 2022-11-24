@@ -14,7 +14,7 @@ RUN apt-get update && apt-get -y install \
 
 # FIXPERM: Fix permissions according to
 # - https://hub.docker.com/r/jupyter/base-notebook/dockerfile
-
+USER root
 # FIXPERM: copy the file ".devcontainer/fix-permissions" to local machine for later call
 # - also see https://www.cnblogs.com/sparkdev/p/9573248.html for "building context"
 COPY fix-permissions /usr/local/bin/fix-permissions
@@ -71,7 +71,9 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER
 ## Change owner
 # https://linuxize.com/post/linux-chown-command/
 # https://blog.gtwang.org/linux/linux-chown-command-tutorial/
-RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR
+RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
+    fix-permissions $WORKSPACE_DIR
+
 ## Switch to user
 USER $NB_UID
 
@@ -80,7 +82,3 @@ RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
     && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
     && mkdir -p ~/.config
     && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
-
-
-RUN fix-permissions $WORKSPACE_DIR
-# Also see [ENTRYPOINT](https://stackoverflow.com/questions/34549859/run-a-script-in-dockerfile)
