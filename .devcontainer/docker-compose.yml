@@ -1,6 +1,8 @@
 version: "3.2"
 
 services:
+  # Seemingly to be the second stage of building after .devcontainer/Dockerfile completes
+  # See https://www.baeldung.com/ops/multiple-dockerfiles
   vscode:
     build: .
     image: latexdevcontainer
@@ -19,5 +21,6 @@ services:
       # Git config
       - ~/.gitconfig:/root/.gitconfig
     environment:
-      - TZ=
+      - TZ=TW
+      # Set the timezone
     entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
