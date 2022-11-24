@@ -67,7 +67,15 @@ ENV NB_USER=$NB_USER \
 # Add or List Group:
 # - https://linuxize.com/post/how-to-create-groups-in-linux/
 # - https://linuxize.com/post/how-to-list-groups-in-linux/
-RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER
+# Create NB_USER wtih name jovyan user with UID=1000 and in the 'users' group
+# and make sure these dirs are writable by the `users` group.
+RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
+    sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
+    sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
+    useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
+    chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
+    chmod g+w /etc/passwd && \
+    fix-permissions $WORKSPACE_DIR
 ## Change owner
 # https://linuxize.com/post/linux-chown-command/
 # https://blog.gtwang.org/linux/linux-chown-command-tutorial/
