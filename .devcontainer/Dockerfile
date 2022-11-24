@@ -1,4 +1,6 @@
-FROM qmcgaw/latexdevcontainer:latest-full
+FROM qmcgaw/latexdevcontainer:latest
+# FROM qmcgaw/latexdevcontainer:latest-full
+# FIXME: switch to full if success
 
 
 RUN apt-get update && apt-get -y install \
@@ -69,13 +71,8 @@ ENV NB_USER=$NB_USER \
 # - https://linuxize.com/post/how-to-list-groups-in-linux/
 # Create NB_USER wtih name jovyan user with UID=1000 and in the 'users' group
 # and make sure these dirs are writable by the `users` group.
-RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
-    sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
-    sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
-    useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
-    chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
-    chmod g+w /etc/passwd && \
-    fix-permissions $WORKSPACE_DIR
+RUN useradd -r -d $WORKSPACE_DIR -g $NB_GID $NB_USER
+# Create a system account (-r) with its home directory being WORKSPACE_DIR where the user NB_USER under the group of id NB_GID
 ## Change owner
 # https://linuxize.com/post/linux-chown-command/
 # https://blog.gtwang.org/linux/linux-chown-command-tutorial/
@@ -83,7 +80,7 @@ RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
     fix-permissions $WORKSPACE_DIR
 
 ## Switch to user
-USER $NB_UID
+# USER $NB_UID
 
 # Install Starship
 RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
