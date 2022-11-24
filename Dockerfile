@@ -77,5 +77,3 @@ RUN tlmgr version && \
 
 RUN apt-get update && apt-get -y install \
     chktex
-
-RUN chmod a+w projects
