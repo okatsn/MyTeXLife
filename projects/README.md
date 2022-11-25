@@ -34,7 +34,7 @@ Get Environment Variable from Docker Container
 -  See https://stackoverflow.com/questions/34051747/get-environment-variable-from-docker-container
 
 Add new user
-- Example: `groupadd -g 1000 okatsn`
+- Example: `useradd -g 1000 okatsn`
 - [Linux sysadmin basics: User account management with UIDs and GIDs](https://www.redhat.com/sysadmin/user-account-gid-uid)
 - [default user in WSL](https://superuser.com/questions/1266881/how-to-change-the-default-user-name-in-wsl)
 - [How to switch between users on one terminal?](https://unix.stackexchange.com/questions/3568/how-to-switch-between-users-on-one-terminal)
