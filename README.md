@@ -21,7 +21,7 @@ In directory `projects`, run `chmod -R a+w *` to make all files and subdirectori
 
 I've tried to solve this problem at the building stage but all attempts failed. See `README.md` in `projects/`.
 
-Go to branch try-fixpermissions-a to continue.
+Go to branch try-fixperm to continue.
 
 ## Hints
 
