@@ -78,9 +78,10 @@ RUN tlmgr version && \
 RUN apt-get update && apt-get -y install \
     chktex
 
-RUN cd projects && \
-    chmod -R a+w *
-    # makes all files, directories and subdirectories under this folder writable to anyone
+# # NO ERROR BUT USELESS (2022-11-25): permissions for projects is not getting fixed
+# RUN cd projects && \
+#     chmod -R a+w *
+#     # makes all files, directories and subdirectories under this folder writable to anyone
 
 
 
