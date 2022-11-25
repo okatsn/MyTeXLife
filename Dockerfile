@@ -78,7 +78,55 @@ RUN tlmgr version && \
 RUN apt-get update && apt-get -y install \
     chktex
 
-RUN cd projects && \
-    chmod -R a+w *
-    # makes all files, directories and subdirectories under this folder writable to anyone
+# RUN cd projects && \
+#     chmod -R a+w *
+#     # makes all files, directories and subdirectories under this folder writable to anyone
+#     # FIXME: this worked but temporarily disabled
+
+
+COPY fix-permissions /usr/local/bin/fix-permissions
+RUN chmod a+rx /usr/local/bin/fix-permissions
+
+# KEYNOTE: Currently, I cannot move/delete files in the project in /projects via neither windows file explorer nor vscode WSL interface. Very likely the permissions are denied because project are `git cloned` by `root`, not the user `okatsn` (the user of WSL).
+
+
+ARG NB_USER="jovyan"
+ARG NB_UID="1000"
+ARG NB_GID="1000"
+ARG WORKSPACE_DIR="./"
+
+# Configure environment
+ENV NB_USER=$NB_USER \
+    NB_UID=$NB_UID \
+    NB_GID=$NB_GID\
+    WORKSPACE_DIR=$WORKSPACE_DIR
+
+## New user; See also
+# Create NB_USER wtih name jovyan user with UID=1000 and in the 'users' group
+# and make sure these dirs are writable by the `users` group.
+RUN useradd -r -g $NB_GID $NB_USER
+# Create a system account (-r) with its home directory being WORKSPACE_DIR where the user NB_USER under the group of id NB_GID
+## Change owner
+# https://linuxize.com/post/linux-chown-command/
+# https://blog.gtwang.org/linux/linux-chown-command-tutorial/
+RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
+    fix-permissions $WORKSPACE_DIR
+
+## Switch to user: This causes subsequent error due to USER $NB_UID does not permissions to write .vscode
+USER $NB_UID
+WORKDIR $WORKSPACE_DIR
+
+
+
+
+
+
+
+
+
+
+
+
+
 CMD echo 'Hello world'
+
