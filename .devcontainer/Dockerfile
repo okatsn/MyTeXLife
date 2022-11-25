@@ -15,4 +15,9 @@ RUN apt-get update && apt-get -y install \
     # ghostscript for handling eps image files
     # inkscape is for including svg; but ["The smoothest route"](https://danmackinlay.name/notebook/latex.html#svg) that converts SVG into PDF+TeX seems very unsuitable for submitting to an academic journal.
 
-RUN chmod a+w projects
+# EVENT: 2022-11-24 at my laptop
+# Permissions for this Dockerfile (as well as some others) are set to root after an error occurred in the following line (cannot find the path).
+# Since container was fail to be built, I can only modify the dockerfile in WSL but permission denied.
+# I forgot the password of WSL thus cannot turn to a superuser, and the folder MyTeXLife becomes undeletable.
+#
+# RUN chmod a+w projects
