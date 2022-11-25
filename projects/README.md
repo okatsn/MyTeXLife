@@ -58,7 +58,7 @@ Add or List Group:
 
 ### Solving the problem in the stage after container has been built
 In terminal (zsh), just set everything under projects to be writable to any user:
-- `chmod a+w projects`
+- `chmod a+w projects` and in directory `projects`, run `chmod -R a+w *`
 - See [chmod的用法 - 痞客興的部落格](https://charleslin74.pixnet.net/blog/post/419874889)
 - [How do I change directory permissions](https://www.pluralsight.com/blog/it-ops/linux-file-permissions)
 
