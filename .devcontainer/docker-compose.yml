@@ -23,4 +23,4 @@ services:
     environment:
       - TZ=TW
       # Set the timezone
-    entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
+    entrypoint: sh -c "chmod a+w projects && cd projects && chmod -R a+w * && sleep infinity"
