@@ -21,11 +21,3 @@ RUN apt-get update && apt-get -y install \
 # I forgot the password of WSL thus cannot turn to a superuser, and the folder MyTeXLife becomes undeletable.
 #
 # RUN chmod a+w projects
-
-
-
-# Install Starship
-RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
-    && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
-    && mkdir -p ~/.config \
-    && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml

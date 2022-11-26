@@ -120,3 +120,10 @@ RUN apt-get update && apt-get -y install \
 # ## Switch to user: This causes subsequent error due to USER $NB_UID does not permissions to write .vscode
 # USER $NB_UID
 # WORKDIR $WORKSPACE_DIR
+
+
+# Install Starship
+RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
+    && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
+    && mkdir -p ~/.config \
+    && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
