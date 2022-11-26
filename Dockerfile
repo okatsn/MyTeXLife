@@ -78,6 +78,9 @@ RUN tlmgr version && \
 RUN apt-get update && apt-get -y install \
     chktex
 
+CMD chmod a+w projects && \
+    cd projects && \
+    chmod -R a+w *
 # # NO ERROR BUT USELESS (2022-11-25): permissions for projects is not getting fixed
 # RUN cd projects && \
 #     chmod -R a+w *
