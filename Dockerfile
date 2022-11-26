@@ -48,7 +48,8 @@ RUN apt-get update -y && \
     rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/texlive /usr/local/texlive/${TEXLIVE_VERSION}/*.log
 ENV PATH ${PATH}:\
 /usr/local/texlive/${TEXLIVE_VERSION}/bin/x86_64-linux:\
-/usr/local/texlive/${TEXLIVE_VERSION}/bin/aarch64-linux
+/usr/local/texlive/${TEXLIVE_VERSION}/bin/aarch64-linux:\
+/usr/local/bin/chktex
 WORKDIR /workspace
 # Latexindent dependencies
 RUN apt-get update -y && \
@@ -78,9 +79,11 @@ RUN tlmgr version && \
 RUN apt-get update && apt-get -y install \
     chktex
 
-CMD chmod a+w projects && \
-    cd projects && \
-    chmod -R a+w *
+# # NO ERROR BUT USELESS (2022-11-25): permissions for projects is not getting fixed
+# CMD chmod a+w projects && \
+#     cd projects && \
+#     chmod -R a+w *
+
 # # NO ERROR BUT USELESS (2022-11-25): permissions for projects is not getting fixed
 # RUN cd projects && \
 #     chmod -R a+w *
