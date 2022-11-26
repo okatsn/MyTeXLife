@@ -121,9 +121,9 @@ RUN apt-get update && apt-get -y install \
 # USER $NB_UID
 # WORKDIR $WORKSPACE_DIR
 
-
-# Install Starship
-RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
-    && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
-    && mkdir -p ~/.config \
-    && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
+# # KEYNOTE: I didn't see starship interface no matter the install procedure is conducted in either of the two Dockerfile
+# # Install Starship
+# RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
+#     && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
+#     && mkdir -p ~/.config \
+#     && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
