@@ -48,7 +48,8 @@ RUN apt-get update -y && \
     rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/texlive /usr/local/texlive/${TEXLIVE_VERSION}/*.log
 ENV PATH ${PATH}:\
 /usr/local/texlive/${TEXLIVE_VERSION}/bin/x86_64-linux:\
-/usr/local/texlive/${TEXLIVE_VERSION}/bin/aarch64-linux
+/usr/local/texlive/${TEXLIVE_VERSION}/bin/aarch64-linux:\
+/usr/local/bin/chktex
 WORKDIR /workspace
 # Latexindent dependencies
 RUN apt-get update -y && \
