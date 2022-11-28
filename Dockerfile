@@ -1,3 +1,5 @@
+# I've tried to build image without this Dockerfile and it works fine. This Docker file seems to be useless.
+
 ARG DEBIAN_VERSION=bullseye-slim
 ARG BASEDEV_VERSION=v0.9.0
 
