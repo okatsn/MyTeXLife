@@ -8,7 +8,7 @@ ARG CHKTEX_VERSION=1.7.6
 # - It is no-error but useless to RUN the following at the second Dockerfile (services: vscode; see docker-compose.yml)
 RUN apt-get update && apt-get -y install \
     libfontconfig libfontconfig1 \
-    ghostscript \
+    ghostscript
 
     # libfontconfig1 is for ... I don't know. But without it, my LaTeX compliation failed
     # ghostscript for handling eps image files
