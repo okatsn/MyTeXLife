@@ -1,6 +1,7 @@
 ARG DEBIAN_VERSION=bullseye-slim
 ARG BASEDEV_VERSION=v0.9.0
 
+# This is the temporatory image "chktex"
 FROM debian:${DEBIAN_VERSION} AS chktex
 ARG CHKTEX_VERSION=1.7.6
 WORKDIR /tmp/workdir
@@ -67,16 +68,21 @@ RUN tlmgr install latexindent latexmk && \
     texhash && \
     rm /usr/local/texlive/${TEXLIVE_VERSION}/texmf-var/web2c/*.log && \
     rm /usr/local/texlive/${TEXLIVE_VERSION}/tlpkg/texlive.tlpdb.main.*
-# COPY --from=chktex /tmp/chktex /usr/local/bin/chktex
+
+# copy the folder /tmp/chktex of previous "chktex" image to the path of current image
+COPY --from=chktex /tmp/chktex /usr/local/bin/chktex
+
 COPY shell/.zshrc-specific shell/.welcome.sh /root/
 # Verify binaries work and have the right permissions
 RUN tlmgr version && \
     latexmk -version && \
     texhash --version && \
-    # chktex --version
+    chktex --version
 
-RUN apt-get update && apt-get -y install \
-    chktex
+
+# # NO ERROR BUT USELESS
+# RUN apt-get update && apt-get -y install \
+#     chktex
 
 # # NO ERROR BUT USELESS (2022-11-25): permissions for projects is not getting fixed
 # CMD chmod a+w projects && \
