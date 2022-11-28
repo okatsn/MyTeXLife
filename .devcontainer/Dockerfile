@@ -79,7 +79,8 @@ RUN useradd -g $NB_GID $NB_USER
 # https://blog.gtwang.org/linux/linux-chown-command-tutorial/
 RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
     fix-permissions $WORKSPACE_DIR && \
-    mkdir /home/$NB_USER
+    mkdir /home/$NB_USER && \
+    chown $NB_USER:$NB_GID /home/$NB_USER
 
 ## Switch to user
 USER $NB_UID
