@@ -11,17 +11,18 @@ RUN apt-get update && apt-get -y install \
     # ghostscript for handling eps image files
     # inkscape is for including svg; but ["The smoothest route"](https://danmackinlay.name/notebook/latex.html#svg) that converts SVG into PDF+TeX seems very unsuitable for submitting to an academic journal.
 
-# Try to fix chktex warning
-ARG CHKTEX_VERSION=1.7.6
-WORKDIR /tmp/workdir
-RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends g++ make wget
-RUN wget -qO- http://download.savannah.gnu.org/releases/chktex/chktex-${CHKTEX_VERSION}.tar.gz | \
-    tar -xz --strip-components=1
-RUN ./configure && \
-    make && \
-    mv chktex /usr/local/bin/chktex && \
-    rm -r *
+# # # No error but the warning does not fixed
+# # Try to fix chktex warning
+# ARG CHKTEX_VERSION=1.7.6
+# WORKDIR /tmp/workdir
+# RUN apt-get update -y && \
+#     apt-get install -y --no-install-recommends g++ make wget
+# RUN wget -qO- http://download.savannah.gnu.org/releases/chktex/chktex-${CHKTEX_VERSION}.tar.gz | \
+#     tar -xz --strip-components=1
+# RUN ./configure && \
+#     make && \
+#     mv chktex /usr/local/bin/chktex && \
+#     rm -r *
 
 # # ERROR: "/tmp/chktex" not found
 # COPY /tmp/chktex /usr/local/bin/chktex
@@ -30,7 +31,7 @@ RUN ./configure && \
 # COPY test.txt relativeDir/
 
 
-WORKDIR /workspace
+WORKDIR /workspace/projects
 # EVENT: 2022-11-24 at my laptop
 # Permissions for this Dockerfile (as well as some others) are set to root after an error occurred in the following line (cannot find the path).
 # Since container was fail to be built, I can only modify the dockerfile in WSL but permission denied.
