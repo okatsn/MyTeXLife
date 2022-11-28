@@ -20,10 +20,11 @@ RUN wget -qO- http://download.savannah.gnu.org/releases/chktex/chktex-${CHKTEX_V
     tar -xz --strip-components=1
 RUN ./configure && \
     make && \
-    mv chktex /tmp && \
+    mv chktex /usr/local/bin/chktex && \
     rm -r *
 
-COPY /tmp/chktex /usr/local/bin/chktex
+# # ERROR: "/tmp/chktex" not found
+# COPY /tmp/chktex /usr/local/bin/chktex
 # # [With and without "/"](https://docs.docker.com/engine/reference/builder/#copy)
 # COPY test.txt /absoluteDir/
 # COPY test.txt relativeDir/
