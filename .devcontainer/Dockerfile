@@ -22,7 +22,7 @@ RUN wget -qO- http://download.savannah.gnu.org/releases/chktex/chktex-${CHKTEX_V
     tar -xz --strip-components=1
 RUN ./configure && \
     make && \
-    mv /tmp/chktex /usr/local/bin/chktex
+    mv chktex /usr/local/bin/chktex
 
 # EVENT: 2022-11-24 at my laptop
 # Permissions for this Dockerfile (as well as some others) are set to root after an error occurred in the following line (cannot find the path).
