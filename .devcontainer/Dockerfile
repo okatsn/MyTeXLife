@@ -14,13 +14,6 @@ RUN apt-get update && apt-get -y install \
 # Install `chktex` does no help the the warning: usr/local/bin/chktex: WARNING -- Could not find global resource file.
 
 
-# FIXPERM: Fix permissions according to
-# - https://hub.docker.com/r/jupyter/base-notebook/dockerfile
-USER root
-# FIXPERM: copy the file ".devcontainer/fix-permissions" to local machine for later call
-# - also see https://www.cnblogs.com/sparkdev/p/9573248.html for "building context"
-COPY fix-permissions /usr/local/bin/fix-permissions
-RUN chmod a+rx /usr/local/bin/fix-permissions
 
 
 
@@ -51,12 +44,20 @@ RUN chmod a+rx /usr/local/bin/fix-permissions
 # - [How to set user of Docker container](https://codeyarns.com/tech/2017-07-21-how-to-set-user-of-docker-container.html#gsc.tab=0)
 
 
+# FIXPERM: Fix permissions according to
+# - https://hub.docker.com/r/jupyter/base-notebook/dockerfile
+USER root
+# FIXPERM: copy the file ".devcontainer/fix-permissions" to local machine for later call
+# - also see https://www.cnblogs.com/sparkdev/p/9573248.html for "building context"
+COPY fix-permissions /usr/local/bin/fix-permissions
+RUN chmod a+rx /usr/local/bin/fix-permissions
+
 
 # FIXPERM
-ARG NB_USER="okatsn"
+ARG NB_USER="jovyan"
 ARG NB_UID="1000"
 ARG NB_GID="100"
-ARG WORKSPACE_DIR="/workspace/"
+ARG WORKSPACE_DIR="/workspace"
 
 # FIXPERM: Configure environment
 ENV NB_USER=$NB_USER \
@@ -71,7 +72,7 @@ ENV NB_USER=$NB_USER \
 # - https://linuxize.com/post/how-to-list-groups-in-linux/
 # Create NB_USER wtih name jovyan user with UID=1000 and in the 'users' group
 # and make sure these dirs are writable by the `users` group.
-RUN useradd -r -d $WORKSPACE_DIR -g $NB_GID $NB_USER
+RUN useradd -g $NB_GID $NB_USER
 # Create a system account (-r) with its home directory being WORKSPACE_DIR where the user NB_USER under the group of id NB_GID
 ## Change owner
 # https://linuxize.com/post/linux-chown-command/
