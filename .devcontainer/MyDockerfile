@@ -58,9 +58,10 @@ ENV NB_USER=$NB_USER \
 # ERROR will occur if:
 # - Without `mkdir /home/$NB_USER`: Permission denied after switch to USER $NB_UID when making "home/jovyan" (jovyan cannot modify the "home" folder!).
 # - Without `chown $NB_USER:$NB_GID /home/$NB_USER`, subdirectories for vscode cannot be created because "/home/$NB_USER" is created and only owned by root.
+# - [How to Setup Sudo No Password in Linux](https://linuxhint.com/setup-sudo-no-password-linux/)
 RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
-    sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
-    sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
+    sed -i.bak -e 's/^@includedir/#@includedir/' /etc/sudoers && \
+    echo "$NB_USER ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     chmod g+w /etc/passwd && \
     chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
@@ -72,13 +73,14 @@ RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
 ## Change (set) password
 ## A user cannot use sudo if he has no password set
 ## See https://stackoverflow.com/questions/2150882/how-to-automatically-add-user-account-and-password-with-a-bash-script
-RUN echo $NB_USER:$PSWD | chpasswd
+# RUN echo $NB_USER:$PSWD | chpasswd
+RUN echo root:$PSWD | chpasswd
 
 ## Make $NB_USER a sudoer
-# RUN usermod -aG sudo $NB_USER
+RUN usermod -aG sudo $NB_USER
 
 ## List files in root to check if I'm already a sudoer
-# RUN echo $PSWD | sudo -S ls -la /root 
+# RUN echo $PSWD | sudo -S ls -la /root
 
 ## Switch to user
 USER $NB_UID
