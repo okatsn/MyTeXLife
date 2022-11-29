@@ -49,8 +49,8 @@ ENV NB_USER=$NB_USER \
 ## Add user $NB_USER with its group being $NB_GID
 RUN useradd -g $NB_GID $NB_USER
 
-## Make $NB_USER a sudoer; this is not required if you don't need sudo
-RUN usermod -aG sudo $NB_USER
+## Make $NB_USER a sudoer
+RUN usermod -aG sudo $NB_USER:$NB_GID
 
 ## ERROR will occur if:
 # - Without `mkdir /home/$NB_USER`: Permission denied after switch to USER $NB_UID when making "home/jovyan" (jovyan cannot modify the "home" folder!).
