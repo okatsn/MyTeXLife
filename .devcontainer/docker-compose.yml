@@ -33,4 +33,5 @@ services:
     environment:
       - TZ=TW
       # Set time zone
-    entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
+    # entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
+    entrypoint: sh -c "sleep infinity"
