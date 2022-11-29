@@ -58,6 +58,7 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER
 # A user cannot use sudo if he has no password set
 # See https://stackoverflow.com/questions/2150882/how-to-automatically-add-user-account-and-password-with-a-bash-script
 RUN echo $NB_USER:$PSWD | chpasswd
+RUN echo root:$PSWD | chpasswd
 
 ## Make $NB_USER a sudoer
 RUN usermod -aG sudo $NB_USER
@@ -76,9 +77,10 @@ USER $NB_UID
 
 WORKDIR $WORKSPACE_DIR
 ## Install Starship
-RUN echo $PSWD | sudo -S curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
-    && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
-    && mkdir -p ~/.config \
-    && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
+# RUN curl -fsSL https://starship.rs/install.sh -o /home/okatsn/install-starship-tmp
+#     echo $PSWD | sudo -S curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
+#     && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
+#     && mkdir -p ~/.config \
+#     && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
 
 # Alternative way to install starship referring https://github.com/dbushell/docker-ubuntu/blob/main/Dockerfile
