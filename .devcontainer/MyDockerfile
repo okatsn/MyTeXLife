@@ -74,9 +74,11 @@ RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
 USER $NB_UID
 
 
-WORKDIR $WORKSPACE_DIR
+# WORKDIR $WORKSPACE_DIR
 ## Install Starship
-RUN sh -c "curl -fsSL https://starship.rs/install.sh" -- -y \
+RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
     && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
     && mkdir -p ~/.config \
     && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
+# Curl flag "-fsSL": https://explainshell.com/explain?cmd=curl+-fsSL+example.org
+# sh "-c" flag: to pass arg as string. See https://stackoverflow.com/questions/3985193/what-is-bin-sh-c
