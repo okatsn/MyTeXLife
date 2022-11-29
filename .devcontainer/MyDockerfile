@@ -76,7 +76,9 @@ USER $NB_UID
 
 WORKDIR $WORKSPACE_DIR
 ## Install Starship
-RUN sh -c "echo $PSWD | sudo -S curl -fsSL https://starship.rs/install.sh" -- -y \
+RUN echo $PSWD | sudo -S curl -fsSL https://starship.rs/install.sh | sh -s -- -y
     && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
     && mkdir -p ~/.config \
     && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
+
+# Alternative way to install starship referring https://github.com/dbushell/docker-ubuntu/blob/main/Dockerfile
