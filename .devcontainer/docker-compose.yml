@@ -29,8 +29,8 @@ services:
       # Shell history persistence
       - ~/.zsh_history:/home/jovyan/.zsh_history:z
       # Git config
-      - ~/.gitconfig:/workspace/.gitconfig
+      - ~/.gitconfig:/home/jovyan/.gitconfig
     environment:
       - TZ=TW
       # Set time zone
-    entrypoint: sh -c "sleep infinity"
+    entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
