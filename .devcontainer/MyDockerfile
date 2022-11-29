@@ -51,36 +51,45 @@ ENV NB_USER=$NB_USER \
 # RUN useradd -m -g $NB_GID $NB_USER
 
 ## Add user as in jupyter/base-notebook/
-RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER
-# the -m flag creates /home/$NB_USER
+# RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER
+## the -m flag creates /home/$NB_USER
 
-## Change (set) password
-# A user cannot use sudo if he has no password set
-# See https://stackoverflow.com/questions/2150882/how-to-automatically-add-user-account-and-password-with-a-bash-script
-RUN echo $NB_USER:$PSWD | chpasswd
-
-## Make $NB_USER a sudoer
-RUN usermod -aG sudo $NB_USER
-
-## ERROR will occur if:
+# # Fix permissions as in jupyter/base-notebook/
+# ERROR will occur if:
 # - Without `mkdir /home/$NB_USER`: Permission denied after switch to USER $NB_UID when making "home/jovyan" (jovyan cannot modify the "home" folder!).
 # - Without `chown $NB_USER:$NB_GID /home/$NB_USER`, subdirectories for vscode cannot be created because "/home/$NB_USER" is created and only owned by root.
-RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
+RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
+    sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
+    sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
+    useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
+    chmod g+w /etc/passwd && \
+    chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
     fix-permissions $WORKSPACE_DIR && \
     fix-permissions /home/$NB_USER
     # or `chown $NB_USER:$NB_GID /home/$NB_USER`
 
-## Switch to user
-# USER $NB_UID
 
-# WORKDIR $WORKSPACE_DIR
+## Change (set) password
+## A user cannot use sudo if he has no password set
+## See https://stackoverflow.com/questions/2150882/how-to-automatically-add-user-account-and-password-with-a-bash-script
+RUN echo $NB_USER:$PSWD | chpasswd
+
+## Make $NB_USER a sudoer
+# RUN usermod -aG sudo $NB_USER
+
+## List files in root to check if I'm already a sudoer
+# RUN echo $PSWD | sudo -S ls -la /root 
+
+## Switch to user
+USER $NB_UID
+
+WORKDIR $WORKSPACE_DIR
 ## Install Starship
-# - `echo $PSWD | sudo -S ls -la /root` just enter the password to print files in /root that later use of sudo don't need password
-# RUN echo $PSWD | sudo -S ls -la /root \
-#     && sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
-#     && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
-#     && mkdir -p ~/.config \
-#     && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
+# - `echo $PSWD | sudo -S ls -la /root` just enter the password to print files in /root
+RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
+    && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
+    && mkdir -p ~/.config \
+    && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
 # Curl flag "-fsSL": https://explainshell.com/explain?cmd=curl+-fsSL+example.org
 # sh "-c" flag: to pass arg as string. See https://stackoverflow.com/questions/3985193/what-is-bin-sh-c
 # In https://starship.rs/guide/#%F0%9F%9A%80-installation the installation is done with `curl -sS https://starship.rs/install.sh | sh`, where a prompt pops that you have to say yes. `sh -c "..." -- -y` do this job with yes to prompts.
