@@ -12,6 +12,8 @@ services:
         WORKSPACE_DIR: /workspace
         # SETME: make this consistent with that in devcontainer.json
     image: latexdevcontainer
+    init: true
+    # See https://docs.docker.com/compose/compose-file/compose-file-v3/#init
     volumes:
       # The home directory is called "workspace"; try `cd ..` and `ls` to figure it out.
       - ../:/workspace
@@ -20,14 +22,15 @@ services:
       # Docker socket to access Docker server
       - /var/run/docker.sock:/var/run/docker.sock
       # SSH directory
-      - ~/.ssh:/jovyan/.ssh
+      - ~/.ssh:/home/jovyan/.ssh
       # For Windows without WSL, a copy will be made
       # from /tmp/.ssh to ~/.ssh to fix permissions
       # - ~/.ssh:/tmp/.ssh:ro
       # Shell history persistence
-      - ~/.zsh_history:/jovyan/.zsh_history:z
+      - ~/.zsh_history:/home/jovyan/.zsh_history:z
       # Git config
-      - ~/.gitconfig:/jovyan/.gitconfig
+      - ~/.gitconfig:/workspace/.gitconfig
     environment:
-      - TZ=
+      - TZ=TW
+      # Set time zone
     entrypoint: sh -c "sleep infinity"
