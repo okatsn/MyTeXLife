@@ -47,10 +47,13 @@ ENV NB_USER=$NB_USER \
     WORKSPACE_DIR=$WORKSPACE_DIR
 
 ## Add user $NB_USER with its group being $NB_GID
-RUN useradd -g $NB_GID $NB_USER
+# RUN useradd -g $NB_GID $NB_USER
+
+## Add user as in jupyter/base-notebook/
+RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER
 
 ## Make $NB_USER a sudoer
-RUN usermod -aG sudo $NB_UID
+RUN usermod -aG sudo $NB_USER
 
 ## ERROR will occur if:
 # - Without `mkdir /home/$NB_USER`: Permission denied after switch to USER $NB_UID when making "home/jovyan" (jovyan cannot modify the "home" folder!).
@@ -58,7 +61,8 @@ RUN usermod -aG sudo $NB_UID
 RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
     fix-permissions $WORKSPACE_DIR && \
     mkdir /home/$NB_USER && \
-    chown $NB_USER:$NB_GID /home/$NB_USER
+    fix-permissions /home/$NB_USER
+    # or `chown $NB_USER:$NB_GID /home/$NB_USER`
 
 ## Switch to user
 USER $NB_UID
