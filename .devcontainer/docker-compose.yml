@@ -1,12 +1,20 @@
+# This is [Compose file](https://docs.docker.com/compose/compose-file/compose-file-v3/)
 version: "3.2"
 
 services:
   vscode:
-    build: .
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        WORKSPACE_DIR: /workspace
+        # SETME: make this consistent with that in devcontainer.json
     image: latexdevcontainer
     volumes:
       # The home directory is called "workspace"; try `cd ..` and `ls` to figure it out.
       - ../:/workspace
+      # SETME: make this consistent with that in devcontainer.json
+
       # Docker socket to access Docker server
       - /var/run/docker.sock:/var/run/docker.sock
       # SSH directory

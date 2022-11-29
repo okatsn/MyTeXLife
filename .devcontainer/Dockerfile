@@ -35,7 +35,7 @@ ARG NB_GID="100"
 # - "workspace": relative directory
 # - "/workspace": absolute directory
 # - "/workspace/" can be wrong but I'm not very sure
-ARG WORKSPACE_DIR="/workspace"
+ARG WORKSPACE_DIR="/workspace/dir/defined/in/docker-compose/yml"
 
 
 ## Configure environment
@@ -61,6 +61,7 @@ RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
 USER $NB_UID
 
 
+WORKDIR $WORKSPACE_DIR
 ## Install Starship
 RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
     && echo 'eval "$(starship init bash)"' >> ~/.bashrc \

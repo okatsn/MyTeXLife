@@ -3,12 +3,14 @@
     "dockerComposeFile": [
         "docker-compose.yml"
     ],
-    "service": "vscode",
+    "service": "vscode", // the service in docker-compose.yml
     "runServices": [
         "vscode"
     ],
     "shutdownAction": "stopCompose",
     "workspaceFolder": "/workspace",
+    // SETME: make this consistent with that in docker-compose.yml
+    // Seemingly it has to be "/workspace" because very likely in `FROM qmcgaw/latexdevcontainer:latest-full` some processes are done under `WORKDIR /workspace`
     "postCreateCommand": "",
     "extensions": [
         "james-yu.latex-workshop",
@@ -45,6 +47,7 @@
         // Latex settings
         "gitProjectManager.baseProjectsFolders": [
             "/workspace/projects"
+            // SETME
         ], // this allows GPM (felipecaputo.git-project-manager) to open repo in the "projects" in a new window
         "latex-workshop.linting.chktex.enabled": true,
         "latex-workshop.latex.clean.subfolder.enabled": true,
