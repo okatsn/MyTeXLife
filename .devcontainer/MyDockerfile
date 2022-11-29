@@ -76,7 +76,7 @@ USER $NB_UID
 
 WORKDIR $WORKSPACE_DIR
 ## Install Starship
-RUN echo $PSWD | sudo -S curl -fsSL https://starship.rs/install.sh | sh -s -- -y
+RUN echo $PSWD | sudo -S curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
     && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
     && mkdir -p ~/.config \
     && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
