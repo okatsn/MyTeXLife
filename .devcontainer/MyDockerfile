@@ -71,16 +71,16 @@ RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
     fix-permissions /home/$NB_USER
     # or `chown $NB_USER:$NB_GID /home/$NB_USER`
 
-## Switch to user
-USER $NB_UID
-
-
 WORKDIR $WORKSPACE_DIR
 ## Install Starship
 RUN echo $PSWD | sudo -S curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
-    && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
-    && mkdir -p ~/.config \
+    && echo 'eval "$(starship init bash)"' >> /home/$NB_USER/.bashrc \
+    && mkdir -p /home/$NB_USER/.config \
     && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
 
 # Alternative way to install starship referring https://github.com/dbushell/docker-ubuntu/blob/main/Dockerfile
 # `curl -fsSL https://starship.rs/install.sh -o /home/okatsn/install-starship-tmp` output the script. It seems not practical to modify the script and execute.
+
+
+## Switch to user
+USER $NB_UID
