@@ -71,7 +71,7 @@ RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
     # or `chown $NB_USER:$NB_GID /home/$NB_USER`
 
 ## Switch to user
-USER $NB_UID
+# USER $NB_UID
 
 # WORKDIR $WORKSPACE_DIR
 ## Install Starship
@@ -84,4 +84,3 @@ USER $NB_UID
 # Curl flag "-fsSL": https://explainshell.com/explain?cmd=curl+-fsSL+example.org
 # sh "-c" flag: to pass arg as string. See https://stackoverflow.com/questions/3985193/what-is-bin-sh-c
 # In https://starship.rs/guide/#%F0%9F%9A%80-installation the installation is done with `curl -sS https://starship.rs/install.sh | sh`, where a prompt pops that you have to say yes. `sh -c "..." -- -y` do this job with yes to prompts.
-
