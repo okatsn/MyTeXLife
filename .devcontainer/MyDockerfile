@@ -39,7 +39,7 @@ ARG NB_GID="100"
 # - "/workspace/" can be wrong but I'm not very sure
 ARG WORKSPACE_DIR="/workspace/dir/defined/in/docker-compose/yml"
 
-ARG PSWD="123456"
+ARG PSWD="1234"
 ## Configure environment
 ENV NB_USER=$NB_USER \
     NB_UID=$NB_UID \
@@ -76,7 +76,7 @@ USER $NB_UID
 
 WORKDIR $WORKSPACE_DIR
 ## Install Starship
-RUN sh -c "echo $PSWD | sudo -S curl -fsSL https://starship.rs/install.sh" -- -y \
+RUN sh -c "curl -fsSL https://starship.rs/install.sh" -- -y \
     && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
     && mkdir -p ~/.config \
     && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
