@@ -4,7 +4,8 @@ FROM qmcgaw/latexdevcontainer:latest-full
 
 RUN apt-get update && apt-get -y install \
     libfontconfig libfontconfig1 \
-    ghostscript
+    ghostscript \
+    sudo
 
     # libfontconfig1 is for ... I don't know. But without it, my LaTeX compliation failed
     # ghostscript for handling eps image files
