@@ -4,8 +4,10 @@ version: "3.2"
 services:
   vscode:
     build:
-      context: .
+      context: ..
+      # The parent directory (i.e., MyTeXLife);
       dockerfile: .devcontainer/Dockerfile
+      # thus, it is MyTeXLife/.devcontainer/Dockerfile
       args:
         WORKSPACE_DIR: /workspace
         # SETME: make this consistent with that in devcontainer.json
