@@ -11,6 +11,24 @@ RUN apt-get update && apt-get -y install \
     # inkscape is for including svg; but ["The smoothest route"](https://danmackinlay.name/notebook/latex.html#svg) that converts SVG into PDF+TeX seems very unsuitable for submitting to an academic journal.
 
 
+
+
+
+
+
+
+
+## Only root can chmod files/directories that are accessible only to root
+USER root
+
+
+## Copy the file ".devcontainer/fix-permissions" to local machine for later call
+# - also see https://www.cnblogs.com/sparkdev/p/9573248.html for "building context"
+COPY fix-permissions /usr/local/bin/fix-permissions
+RUN chmod a+rx /usr/local/bin/fix-permissions
+
+
+
 # Install necessary packages. See https://hub.docker.com/r/jupyter/base-notebook/dockerfile
 RUN apt-get update \
  && apt-get install -yq --no-install-recommends \
@@ -30,14 +48,6 @@ RUN apt-get update \
 # ## How I fixed it
 # Refering https://hub.docker.com/r/jupyter/base-notebook/dockerfile, I create a new user with its ID the default ID (i.e., "1000"), and use the `fix-permissions` script to change the modification permissions of everything under the "/workspace" folder
 
-## Only root can chmod files/directories that are accessible only to root
-USER root
-
-
-## Copy the file ".devcontainer/fix-permissions" to local machine for later call
-# - also see https://www.cnblogs.com/sparkdev/p/9573248.html for "building context"
-COPY fix-permissions /usr/local/bin/fix-permissions
-RUN chmod a+rx /usr/local/bin/fix-permissions
 
 
 ARG NB_USER="jovyan"
