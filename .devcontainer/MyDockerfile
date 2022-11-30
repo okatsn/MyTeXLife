@@ -4,9 +4,7 @@ FROM qmcgaw/latexdevcontainer:latest-full
 
 RUN apt-get update && apt-get -y install \
     libfontconfig libfontconfig1 \
-    ghostscript \
-    sudo \
-    curl
+    ghostscript 
 
     # libfontconfig1 is for ... I don't know. But without it, my LaTeX compliation failed
     # ghostscript for handling eps image files
@@ -61,26 +59,33 @@ RUN echo $NB_USER:$PSWD | chpasswd
 RUN echo root:$PSWD | chpasswd
 
 ## Make $NB_USER a sudoer
-RUN usermod -aG sudo $NB_USER
+# RUN usermod -aG sudo $NB_USER
 
 ## ERROR will occur if:
 # - Without `mkdir /home/$NB_USER`: Permission denied after switch to USER $NB_UID when making "home/jovyan" (jovyan cannot modify the "home" folder!).
 # - Without `chown $NB_USER:$NB_GID /home/$NB_USER`, subdirectories for vscode cannot be created because "/home/$NB_USER" is created and only owned by root.
 RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
+    chown $NB_USER:$NB_GID /usr/local/bin && \
     fix-permissions $WORKSPACE_DIR && \
     fix-permissions /home/$NB_USER
     # or `chown $NB_USER:$NB_GID /home/$NB_USER`
 
+## Switch to user
+USER $NB_UID
 WORKDIR $WORKSPACE_DIR
+
+RUN apt-get -y install \
+    curl
+
 ## Install Starship
-RUN echo $PSWD | sudo -S curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
-    && echo 'eval "$(starship init bash)"' >> /home/$NB_USER/.bashrc \
-    && mkdir -p /home/$NB_USER/.config \
+RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
+    && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
+    && mkdir -p ~/.config \
     && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
 
 # Alternative way to install starship referring https://github.com/dbushell/docker-ubuntu/blob/main/Dockerfile
 # `curl -fsSL https://starship.rs/install.sh -o /home/okatsn/install-starship-tmp` output the script. It seems not practical to modify the script and execute.
 
+# # Pass password to sudo; get script from curl; execute script and say yes to all.
+# RUN echo $PSWD | sudo -S curl -fsSL https://starship.rs/install.sh | sh -s -- -y
 
-## Switch to user
-USER $NB_UID
