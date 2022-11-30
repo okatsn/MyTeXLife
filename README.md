@@ -16,6 +16,13 @@ Additional vscode extensions and settings (includes a set of default LaTeX recip
 - `cd` to *projects*, clone your project there and start your LaTeX life there.
 - Anything in *projects* will be git-ignored.
 
+### Permission Issues
+In directory `projects`, run `chmod -R a+w *` to make all files and subdirectories under the project folder being writable to other users. If you didn't do this, you cannot modify/delete the contents by users outside the container.
+
+I've tried to solve this problem at the building stage but all attempts failed. See `README.md` in `projects/`.
+
+Go to branch try-fixperm to continue.
+
 ## Hints
 
 ### Install other applications in container OS
