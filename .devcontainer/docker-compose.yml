@@ -6,8 +6,8 @@ services:
     build:
       context: .
       # That is, /.devcontainer
-      dockerfile: MyDockerfile
-      # That is, /.devcontainer/MyDockerfile (rename makes it more clear)
+      dockerfile: Dockerfile
+      # That is, /.devcontainer/Dockerfile (rename makes it more clear)
       args:
         WORKSPACE_DIR: /workspace
         # SETME: make this consistent with that in devcontainer.json
