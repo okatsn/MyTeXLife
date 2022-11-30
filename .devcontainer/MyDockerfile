@@ -4,8 +4,8 @@ FROM qmcgaw/latexdevcontainer:latest-full
 
 RUN apt-get update && apt-get -y install \
     libfontconfig libfontconfig1 \
-    ghostscript 
-
+    ghostscript \
+    curl
     # libfontconfig1 is for ... I don't know. But without it, my LaTeX compliation failed
     # ghostscript for handling eps image files
     # inkscape is for including svg; but ["The smoothest route"](https://danmackinlay.name/notebook/latex.html#svg) that converts SVG into PDF+TeX seems very unsuitable for submitting to an academic journal.
@@ -67,15 +67,18 @@ RUN echo root:$PSWD | chpasswd
 RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
     chown $NB_USER:$NB_GID /usr/local/bin && \
     fix-permissions $WORKSPACE_DIR && \
-    fix-permissions /home/$NB_USER
+    fix-permissions /home/$NB_USER && \
+    fix-permissions /usr/local/bin
     # or `chown $NB_USER:$NB_GID /home/$NB_USER`
 
 ## Switch to user
 USER $NB_UID
 WORKDIR $WORKSPACE_DIR
 
-RUN apt-get -y install \
-    curl
+# # User cannot do this unless you use sudo
+# - see https://unix.stackexchange.com/questions/39572/allow-non-admin-users-to-install-packages-via-apt-or-rpm
+# RUN apt-get -y install \
+#     curl
 
 ## Install Starship
 RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
