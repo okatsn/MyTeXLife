@@ -62,6 +62,8 @@ RUN echo root:$PSWD | chpasswd
 
 ## Make $NB_USER a sudoer
 # RUN usermod -aG sudo $NB_USER
+## List files in root to check if I'm already a sudoer
+# RUN echo $PSWD | sudo -S ls -la /root
 
 ## ERROR will occur if:
 # - Without `mkdir /home/$NB_USER`: Permission denied after switch to USER $NB_UID when making "home/jovyan" (jovyan cannot modify the "home" folder!).
@@ -92,6 +94,14 @@ RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
 
 # Alternative way to install starship referring https://github.com/dbushell/docker-ubuntu/blob/main/Dockerfile
 # `curl -fsSL https://starship.rs/install.sh -o /home/okatsn/install-starship-tmp` output the script. It seems not practical to modify the script and execute.
+
+# Curl flag "-fsSL": https://explainshell.com/explain?cmd=curl+-fsSL+example.org
+
+# # Equivalent alternative:
+# RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
+# sh "-c" flag: to pass arg as string. See https://stackoverflow.com/questions/3985193/what-is-bin-sh-c
+# In https://starship.rs/guide/#%F0%9F%9A%80-installation the installation is done with `curl -sS https://starship.rs/install.sh | sh`, where a prompt pops that you have to say yes. `sh -c "..." -- -y` do this job with yes to prompts.
+
 
 # # Pass password to sudo; get script from curl; execute script and say yes to all.
 # RUN echo $PSWD | sudo -S curl -fsSL https://starship.rs/install.sh | sh -s -- -y
