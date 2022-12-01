@@ -1,0 +1,9 @@
+
+# https://starship.rs/config/#git-commit
+[git_commit]
+commit_hash_length = 4
+tag_symbol = "🔖 "
+
+# https://starship.rs/config/#julia
+[julia]
+symbol = "∴ "
