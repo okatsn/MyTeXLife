@@ -2,13 +2,18 @@
 FROM qmcgaw/latexdevcontainer:latest-full
 # KEYNOTE: Very likely everything is set up with `USER root` in `FROM qmcgaw/latexdevcontainer:latest`.
 
+# # Install packages
+# - apt-get by default install packages for all users
 RUN apt-get update && apt-get -y install \
     libfontconfig libfontconfig1 \
-    ghostscript \
-    curl
     # libfontconfig1 is for ... I don't know. But without it, my LaTeX compliation failed
+    ghostscript \
     # ghostscript for handling eps image files
-    # inkscape is for including svg; but ["The smoothest route"](https://danmackinlay.name/notebook/latex.html#svg) that converts SVG into PDF+TeX seems very unsuitable for submitting to an academic journal.
+    curl \
+    bash-completion
+
+# Other packages:
+# inkscape is for including svg; but ["The smoothest route"](https://danmackinlay.name/notebook/latex.html#svg) that converts SVG into PDF+TeX seems very unsuitable for submitting to an academic journal.
 
 
 # # FIX PERMISSION
@@ -38,7 +43,7 @@ ARG NB_GID="100"
 ARG WORKSPACE_DIR="/workspace/dir/defined/in/docker-compose/yml"
 ARG HOME=/home/$NB_USER
 
-ARG PSWD="123456"
+ARG PSWD="1234"
 ## Configure environment
 ENV NB_USER=$NB_USER \
     NB_UID=$NB_UID \
@@ -66,9 +71,15 @@ RUN echo root:$PSWD | chpasswd
 # RUN echo $PSWD | sudo -S ls -la /root
 
 
+# # Copy files in .devcontainer to HOME for default configurations
+#
 ## Starship configuration
 COPY starship.toml /$HOME/.config/starship.toml
-
+## If there is git-completion.bash, you should use it
+# - this makes auto-completion after `git branch ...` works properly
+# - Requirement: git-completion.bash; see below `RUN ... curl ... git-completion.bash`.
+# - zsh seems natively supports auto completion. See https://apple.stackexchange.com/a/55886
+COPY .bash_profile /$HOME/.bash_profile
 
 ## Fix permissions for NB_USER
 # ERROR will occur if:
@@ -91,13 +102,12 @@ WORKDIR $WORKSPACE_DIR
 # RUN apt-get -y install \
 #     curl
 
-## Install Starship
+## Install Starship and git-auto completion
 RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
     && echo 'eval "$(starship init bash)"' >> ~/.bashrc \
-    && mkdir -p ~/.config
-    #  \
-    # && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
-
+    && mkdir -p ~/.config \
+    # auto completion for git: https://ithelp.ithome.com.tw/articles/10227698
+    && curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > ~/.git-completion.sh
 
 
 # Alternative way to install starship referring https://github.com/dbushell/docker-ubuntu/blob/main/Dockerfile
