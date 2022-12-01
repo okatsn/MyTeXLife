@@ -92,6 +92,10 @@ RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
     #  \
     # && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
 
+## Starship configuration
+COPY starship.toml /$HOME/.config/starship.toml
+
+
 # Alternative way to install starship referring https://github.com/dbushell/docker-ubuntu/blob/main/Dockerfile
 # `curl -fsSL https://starship.rs/install.sh -o /home/okatsn/install-starship-tmp` output the script. It seems not practical to modify the script and execute.
 
