@@ -65,7 +65,13 @@ RUN echo root:$PSWD | chpasswd
 ## List files in root to check if I'm already a sudoer
 # RUN echo $PSWD | sudo -S ls -la /root
 
-## ERROR will occur if:
+
+## Starship configuration
+COPY starship.toml /$HOME/.config/starship.toml
+
+
+## Fix permissions for NB_USER
+# ERROR will occur if:
 # - Without `mkdir /home/$NB_USER`: Permission denied after switch to USER $NB_UID when making "home/jovyan" (jovyan cannot modify the "home" folder!).
 # - Without `chown $NB_USER:$NB_GID /home/$NB_USER`, subdirectories for vscode cannot be created because "/home/$NB_USER" is created and only owned by root.
 RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
@@ -92,8 +98,6 @@ RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
     #  \
     # && echo -e '[conda]\nsymbol = "Conda "\nignore_base = false' > ~/.config/starship.toml
 
-## Starship configuration
-COPY starship.toml /$HOME/.config/starship.toml
 
 
 # Alternative way to install starship referring https://github.com/dbushell/docker-ubuntu/blob/main/Dockerfile
