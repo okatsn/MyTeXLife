@@ -4,6 +4,9 @@ FROM qmcgaw/latexdevcontainer:latest-full
 
 # # Install packages
 # - apt-get by default install packages for all users
+
+# Install `chktex` does no help the the warning: usr/local/bin/chktex: WARNING -- Could not find global resource file.
+# - It is no-error but useless to RUN the following at workspace/Dockerfile (services: vscode; see docker-compose.yml)
 RUN apt-get update && apt-get -y install \
     libfontconfig libfontconfig1 \
     # libfontconfig1 is for ... I don't know. But without it, my LaTeX compliation failed
@@ -123,3 +126,21 @@ RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
 
 # # Pass password to sudo; get script from curl; execute script and say yes to all.
 # RUN echo $PSWD | sudo -S curl -fsSL https://starship.rs/install.sh | sh -s -- -y
+# # # No error but the warning does not fixed
+# # Try to fix chktex warning
+# ARG CHKTEX_VERSION=1.7.6
+# WORKDIR /tmp/workdir
+# RUN apt-get update -y && \
+#     apt-get install -y --no-install-recommends g++ make wget
+# RUN wget -qO- http://download.savannah.gnu.org/releases/chktex/chktex-${CHKTEX_VERSION}.tar.gz | \
+#     tar -xz --strip-components=1
+# RUN ./configure && \
+#     make && \
+#     mv chktex /usr/local/bin/chktex && \
+#     rm -r *
+
+# # ERROR: "/tmp/chktex" not found
+# COPY /tmp/chktex /usr/local/bin/chktex
+# # [With and without "/"](https://docs.docker.com/engine/reference/builder/#copy)
+# COPY test.txt /absoluteDir/
+# COPY test.txt relativeDir/

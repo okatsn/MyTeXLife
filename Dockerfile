@@ -1,3 +1,6 @@
+# This seems to be the building script of `FROM qmcgaw/latexdevcontainer:latest`
+# This script seemingly don't take any effect in the building stage at all.
+
 ARG DEBIAN_VERSION=bullseye-slim
 ARG BASEDEV_VERSION=v0.9.0
 
@@ -67,7 +70,10 @@ RUN tlmgr install latexindent latexmk && \
     texhash && \
     rm /usr/local/texlive/${TEXLIVE_VERSION}/texmf-var/web2c/*.log && \
     rm /usr/local/texlive/${TEXLIVE_VERSION}/tlpkg/texlive.tlpdb.main.*
+
+# copy the folder /tmp/chktex of previous "chktex" image to the path of current image
 COPY --from=chktex /tmp/chktex /usr/local/bin/chktex
+
 COPY shell/.zshrc-specific shell/.welcome.sh /root/
 # Verify binaries work and have the right permissions
 RUN tlmgr version && \
