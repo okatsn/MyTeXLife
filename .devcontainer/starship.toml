@@ -1,23 +1,16 @@
 
-# https://starship.rs/config/#git-commit
-[git_commit]
-commit_hash_length = 4
-tag_symbol = "🔖 "
-
-# https://starship.rs/config/#julia
-[julia]
-symbol = "∴ "
-
 
 # [Pastel Powerline Preset](https://starship.rs/presets/pastel-powerline.html)
+# in bash `cp .devcontainer/starship.toml ~/.config/starship.toml` to make the change takes effect immediately
 format = """
 [](#9A348E)\
 $username\
-[](bg:#DA627D fg:#9A348E)\
+[](bg:#5026d9 fg:#9A348E)\
 $directory\
-[](fg:#DA627D bg:#FCA17D)\
+[](fg:#5026d9 bg:#FCA17D)\
 $git_branch\
 $git_status\
+$git_commit\
 [](fg:#FCA17D bg:#86BBD8)\
 $c\
 $elixir\
@@ -48,7 +41,7 @@ style_root = "bg:#9A348E"
 format = '[$user ]($style)'
 
 [directory]
-style = "bg:#DA627D"
+style = "bg:#5026d9"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
@@ -95,6 +88,10 @@ format = '[ $symbol $branch ]($style)'
 style = "bg:#FCA17D"
 format = '[$all_status$ahead_behind ]($style)'
 
+[git_commit]
+commit_hash_length = 4
+tag_symbol = "🔖 "
+
 [golang]
 symbol = " "
 style = "bg:#86BBD8"
@@ -135,8 +132,9 @@ symbol = " "
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
+# SETME: it is now disabled
 [time]
-disabled = false
+disabled = true
 time_format = "%R" # Hour:Minute Format
 style = "bg:#33658A"
 format = '[ ♥ $time ]($style)'

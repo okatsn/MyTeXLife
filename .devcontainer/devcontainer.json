@@ -34,6 +34,9 @@
         // format and highlight
         "shardulm94.trailing-spaces",
         "christian-kohler.path-intellisense",
+        // html colors
+        "naumovs.color-highlight",
+        "royaction.color-manager",
         // markdown
         "shd101wyy.markdown-preview-enhanced",
         "yzhang.markdown-all-in-one",
@@ -78,6 +81,9 @@
             // "remote",
             "tags"
         ],
+        // html colors
+        "color-highlight.markerType": "dot-before",
+        "color-manager.autoStartIntellisense": true,
         // todo-tree
         "todo-tree.general.enableFileWatcher": true,
         "todo-tree.tree.buttons.scanMode": true,
