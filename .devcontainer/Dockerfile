@@ -2,9 +2,6 @@
 FROM qmcgaw/latexdevcontainer:latest-full
 # KEYNOTE: Very likely everything is set up with `USER root` in `FROM qmcgaw/latexdevcontainer:latest`.
 
-# # Install packages
-# - apt-get by default install packages for all users
-
 # Install `chktex` does no help the the warning: usr/local/bin/chktex: WARNING -- Could not find global resource file.
 # - It is no-error but useless to RUN the following at workspace/Dockerfile (services: vscode; see docker-compose.yml)
 RUN apt-get update && apt-get -y install \
@@ -39,10 +36,7 @@ ARG NB_USER="jovyan"
 ARG NB_UID="1000"
 ARG NB_GID="100"
 
-## Backslash does matter!
-# - "workspace": relative directory
-# - "/workspace": absolute directory
-# - "/workspace/" can be wrong but I'm not very sure
+
 ARG WORKSPACE_DIR="/workspace/dir/defined/in/docker-compose/yml"
 ARG HOME=/home/$NB_USER
 
@@ -68,10 +62,6 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER
 RUN echo $NB_USER:$PSWD | chpasswd
 RUN echo root:$PSWD | chpasswd
 
-## Make $NB_USER a sudoer
-# RUN usermod -aG sudo $NB_USER
-## List files in root to check if I'm already a sudoer
-# RUN echo $PSWD | sudo -S ls -la /root
 
 
 # # Copy files in .devcontainer to HOME for default configurations
@@ -86,7 +76,6 @@ COPY .bash_profile /$HOME/.bash_profile
 
 ## Fix permissions for NB_USER
 # ERROR will occur if:
-# - Without `mkdir /home/$NB_USER`: Permission denied after switch to USER $NB_UID when making "home/jovyan" (jovyan cannot modify the "home" folder!).
 # - Without `chown $NB_USER:$NB_GID /home/$NB_USER`, subdirectories for vscode cannot be created because "/home/$NB_USER" is created and only owned by root.
 RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
     chown $NB_USER:$NB_GID /usr/local/bin && \
@@ -113,19 +102,6 @@ RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
     && curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > ~/.git-completion.sh
 
 
-# Alternative way to install starship referring https://github.com/dbushell/docker-ubuntu/blob/main/Dockerfile
-# `curl -fsSL https://starship.rs/install.sh -o /home/okatsn/install-starship-tmp` output the script. It seems not practical to modify the script and execute.
-
-# Curl flag "-fsSL": https://explainshell.com/explain?cmd=curl+-fsSL+example.org
-
-# # Equivalent alternative:
-# RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y \
-# sh "-c" flag: to pass arg as string. See https://stackoverflow.com/questions/3985193/what-is-bin-sh-c
-# In https://starship.rs/guide/#%F0%9F%9A%80-installation the installation is done with `curl -sS https://starship.rs/install.sh | sh`, where a prompt pops that you have to say yes. `sh -c "..." -- -y` do this job with yes to prompts.
-
-
-# # Pass password to sudo; get script from curl; execute script and say yes to all.
-# RUN echo $PSWD | sudo -S curl -fsSL https://starship.rs/install.sh | sh -s -- -y
 # # # No error but the warning does not fixed
 # # Try to fix chktex warning
 # ARG CHKTEX_VERSION=1.7.6
