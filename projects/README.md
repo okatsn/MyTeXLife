@@ -14,6 +14,8 @@ clone https://github.com/okatsn/MyArticle.git
 ## The problem of permissions, e.g., `EACCES: permission denied`
 The project cloned by user `root` cannot be accessed by other users, which is very inconvenient for example I cannot add a file to project/MyArticle from places outside this container.
 
+> 💡: If you mess things up, you may try in windows command window `config --default-user root` to make the default user of WSL a superuser; remember to switch the default user back after cleaning is done.
+
 ### Useful resources and command
 Permissions:
 - View: `ls -la `
