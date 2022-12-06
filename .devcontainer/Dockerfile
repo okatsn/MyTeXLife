@@ -10,7 +10,15 @@ RUN apt-get update && apt-get -y install \
     ghostscript \
     # ghostscript for handling eps image files
     curl \
-    bash-completion
+    bash-completion\
+    chktex
+
+# # Hopefully this will fix the annoying chktex warning
+# In bash, you can
+# 1. apt-get install chktex
+# 2. cp /usr/bin/chktex /usr/local/bin/chktex
+# to fix the annoying chktex warning
+COPY /usr/bin/chktex /usr/local/bin/chktex
 
 # Other packages:
 # inkscape is for including svg; but ["The smoothest route"](https://danmackinlay.name/notebook/latex.html#svg) that converts SVG into PDF+TeX seems very unsuitable for submitting to an academic journal.
@@ -84,6 +92,8 @@ RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
     # or `chown $NB_USER:$NB_GID /home/$NB_USER`
     fix-permissions /usr/local/bin
     # in order to install starship
+
+
 
 ## Switch to user
 USER $NB_UID
