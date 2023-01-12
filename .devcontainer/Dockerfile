@@ -46,7 +46,7 @@ ARG NB_GID="100"
 
 
 ARG WORKSPACE_DIR="/workspace/dir/defined/in/docker-compose/yml"
-ARG PROJECT_DIR ="/workspace/dir/defined/in/docker-compose/yml"
+ARG REPO_DIR ="/workspace/dir/defined/in/docker-compose/yml"
 ARG HOME=/home/$NB_USER
 
 ARG PSWD="1234"
@@ -57,7 +57,7 @@ ENV NB_USER=$NB_USER \
     WORKSPACE_DIR=$WORKSPACE_DIR\
     HOME=$HOME\
     PSWD=$PSWD\
-    PROJECT_DIR=$PROJECT_DIR
+    REPO_DIR=$REPO_DIR
 
 ## Add user $NB_USER with its group being $NB_GID
 # RUN useradd -m -g $NB_GID $NB_USER
