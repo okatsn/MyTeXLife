@@ -46,7 +46,7 @@ ARG NB_GID="100"
 
 
 ARG WORKSPACE_DIR="/workspace/dir/defined/in/docker-compose/yml"
-ARG PROJECT_DIR ="/workspace/dir/defined/in/docker-compose/yml"
+ARG PROJECT_DIR="/workspace/dir/defined/in/docker-compose/yml"
 ARG HOME=/home/$NB_USER
 
 ARG PSWD="1234"
