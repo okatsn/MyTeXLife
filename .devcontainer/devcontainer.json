@@ -13,35 +13,39 @@
     // Seemingly it has to be "/workspace" because very likely in `FROM qmcgaw/latexdevcontainer:latest-full` some processes are done under `WORKDIR /workspace`
     "postCreateCommand": "",
     "extensions": [
-        "james-yu.latex-workshop",
-        "mathematic.vscode-latex",
-        "jeffersonqin.latex-snippets-jeff",
-        "tecosaur.latex-utilities",
-        // Other helpers
-        "stkb.rewrap", // rewrap comments after n characters on one line
+        // Common Extensions
         "gruntfuggly.todo-tree",
         "streetsidesoftware.code-spell-checker",
-        "tabnine.tabnine-vscode",
-        // Other
-        "vscode-icons-team.vscode-icons",
-        // git and github
-        "mhutchie.git-graph",
+        "mhutchie.git-graph", // GIT and GITHUB
         "donjayamanne.githistory",
         "github.vscode-pull-request-github",
         "felipecaputo.git-project-manager",
         "eamodio.gitlens",
         "mathieu.vscode-github-actions",
-        // format and highlight
-        "shardulm94.trailing-spaces",
+        "shardulm94.trailing-spaces", // format and highlight
         "christian-kohler.path-intellisense",
-        // html colors
-        "naumovs.color-highlight",
+        "naumovs.color-highlight", // html colors
         "royaction.color-manager",
-        // markdown
-        "shd101wyy.markdown-preview-enhanced",
+        "shd101wyy.markdown-preview-enhanced", // markdown
         "yzhang.markdown-all-in-one",
         "tomashubelbauer.vscode-markdown-table-format",
         "joffreykern.markdown-toc",
+        "bierner.emojisense", // emoji
+        "wdawson.better-kill-ring", // other
+        "ms-vscode.live-server",
+        "mutantdino.resourcemonitor",
+        "mkvoya.eps-preview",
+        "ms-azuretools.vscode-docker", // Docker
+        "editorconfig.editorconfig", // vscode: use .editorconfig at WORKSPACE_DIR
+        "redhat.vscode-yaml",
+        // MyTeXLife Exclusive
+        "james-yu.latex-workshop", // Latex
+        "mathematic.vscode-latex",
+        "jeffersonqin.latex-snippets-jeff",
+        "tecosaur.latex-utilities",
+        "tabnine.tabnine-vscode", // Other helpers
+        "stkb.rewrap", // rewrap comments after n characters on one line
+        "vscode-icons-team.vscode-icons",
     ],
     "settings": {
         // General settings
