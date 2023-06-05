@@ -10,10 +10,10 @@ services:
       # That is, /.devcontainer/Dockerfile (rename makes it more clear)
       args:
         WORKSPACE_DIR: /workspace
-        PROJECT_DIR: /workspace/projects
+        SUB_PROJECT_DIR: /workspace/projects
         # SETME: make this consistent with that in devcontainer.json
-        # PROJECT_DIR is intended for you to easily go there for cloning your projects,
-        # i.e., cd $PROJECT_DIR
+        # SUB_PROJECT_DIR is intended for you to easily go there for cloning your projects,
+        # i.e., cd $SUB_PROJECT_DIR
     image: latexdevcontainer
     init: true
     # See https://docs.docker.com/compose/compose-file/compose-file-v3/#init

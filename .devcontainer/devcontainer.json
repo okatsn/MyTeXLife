@@ -50,7 +50,7 @@
         // Latex settings
         "gitProjectManager.baseProjectsFolders": [
             "/workspace/projects"
-            // SETME: it is PROJECT_DIR in docker-compose.yml
+            // SETME: it is SUB_PROJECT_DIR in docker-compose.yml
         ], // this allows GPM (felipecaputo.git-project-manager) to open repo in the "projects" in a new window
         "latex-workshop.linting.chktex.enabled": true,
         "latex-workshop.latex.clean.subfolder.enabled": true,
