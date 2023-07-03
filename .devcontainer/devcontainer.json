@@ -12,53 +12,46 @@
     // SETME: make this consistent with that in docker-compose.yml
     // Seemingly it has to be "/workspace" because very likely in `FROM qmcgaw/latexdevcontainer:latest-full` some processes are done under `WORKDIR /workspace`
     "postCreateCommand": "",
-    "extensions": [
-        // Common Extensions
-        "gruntfuggly.todo-tree",
-        "streetsidesoftware.code-spell-checker",
-        "mhutchie.git-graph", // GIT and GITHUB
-        "donjayamanne.githistory",
-        "github.vscode-pull-request-github",
-        "felipecaputo.git-project-manager",
-        "eamodio.gitlens",
-        "mathieu.vscode-github-actions",
-        "shardulm94.trailing-spaces", // format and highlight
-        "christian-kohler.path-intellisense",
-        "naumovs.color-highlight", // html colors
-        "royaction.color-manager",
-        "shd101wyy.markdown-preview-enhanced", // markdown
-        "yzhang.markdown-all-in-one",
-        "tomashubelbauer.vscode-markdown-table-format",
-        "joffreykern.markdown-toc",
-        "bierner.emojisense", // emoji
-        "wdawson.better-kill-ring", // other
-        "ms-vscode.live-server",
-        "mutantdino.resourcemonitor",
-        "mkvoya.eps-preview",
-        "ms-azuretools.vscode-docker", // Docker
-        "editorconfig.editorconfig", // vscode: use .editorconfig at WORKSPACE_DIR
-        "redhat.vscode-yaml",
-        // MyTeXLife Exclusive
-        "james-yu.latex-workshop", // Latex
-        "mathematic.vscode-latex",
-        "jeffersonqin.latex-snippets-jeff",
-        "tecosaur.latex-utilities",
-        "valentjn.vscode-ltex", // Spell & Grammar check
-        "tabnine.tabnine-vscode", // Other helpers
-        "stkb.rewrap", // rewrap comments after n characters on one line
-        "vscode-icons-team.vscode-icons",
-    ],
-    "settings": {
-        "gitProjectManager.baseProjectsFolders": [
-            "/workspace/projects"
-            // SETME: it is SUB_PROJECT_DIR in docker-compose.yml
-        ], // this allows GPM (felipecaputo.git-project-manager) to open repo in the "projects" in a new window
-        "latex-workshop.latexindent.path": "latexindent",
-        "latex-workshop.latexindent.args": [
-            "-c",
-            "%DIR%/",
-            "%TMPFILE%",
-            "-y=defaultIndent: '%INDENT%'"
-        ]
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                // KEYNOTE: Please refer "dev.containers.defaultExtensions" in  settings.json (Ctrl+Shift+P and Open User Settings (JSON)) for Common Extensions
+                // MyTeXLife Exclusive
+                "james-yu.latex-workshop", // Latex
+                "mathematic.vscode-latex",
+                "jeffersonqin.latex-snippets-jeff",
+                "tecosaur.latex-utilities",
+                "valentjn.vscode-ltex", // Spell & Grammar check
+                "tabnine.tabnine-vscode", // Other helpers
+                "stkb.rewrap", // rewrap comments after n characters on one line
+                "vscode-icons-team.vscode-icons",
+            ],
+            "settings": {
+                "gitProjectManager.baseProjectsFolders": [
+                    "/workspace/projects"
+                    // SETME: it is SUB_PROJECT_DIR in docker-compose.yml
+                ], // this allows GPM (felipecaputo.git-project-manager) to open repo in the "projects" in a new window
+                "latex-workshop.latexindent.path": "latexindent",
+                "latex-workshop.latexindent.args": [
+                    "-c",
+                    "%DIR%/",
+                    "%TMPFILE%",
+                    "-y=defaultIndent: '%INDENT%'"
+                ],
+                // General settings
+                "files.eol": "\n",
+                // Latex settings
+                "latex-workshop.linting.chktex.enabled": true,
+                "latex-workshop.linting.chktex.exec.path": "chktex",
+                "latex-workshop.latex.clean.subfolder.enabled": true,
+                "latex-workshop.latex.autoClean.run": "onBuilt",
+                "editor.formatOnSave": true,
+                "files.associations": {
+                    "*.tex": "latex"
+                },
+                "dev.containers.cacheVolume": false
+                // to apply your extensions and settings in .devcontainer/devcontainer.json without cache.
+            }
+        }
     }
 }
