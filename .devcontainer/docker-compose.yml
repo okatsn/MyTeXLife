@@ -33,8 +33,14 @@ services:
       - ~/.zsh_history:/home/jovyan/.zsh_history:z
       # Git config
       - ~/.gitconfig:/home/jovyan/.gitconfig
+      # - vscode-server:/home/jovyan/.vscode-server
+      # - vscode-server-insiders:/home/jovyan/.vscode-server-insiders
     environment:
       - TZ=TW
       # Set time zone
-    # entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
+      # entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
     entrypoint: sh -c "sleep infinity"
+
+# volumes:
+#   vscode-server:
+#   vscode-server-insiders:
