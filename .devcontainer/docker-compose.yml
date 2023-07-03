@@ -33,8 +33,17 @@ services:
       - ~/.zsh_history:/home/jovyan/.zsh_history:z
       # Git config
       - ~/.gitconfig:/home/jovyan/.gitconfig
+      - vscode-server:/home/jovyan/.vscode-server
+      - vscode-server-insiders:/home/jovyan/.vscode-server-insiders
     environment:
       - TZ=TW
       # Set time zone
-    # entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
+      # entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
     entrypoint: sh -c "sleep infinity"
+
+volumes:
+  vscode-server:
+  vscode-server-insiders:
+
+    # KEYNOTE: .vscode-server should not exist in the image to be pushed
+    # - If the entire .vscode-server directories does not be added to volumes, such as the case that only .vscode-server/extensions is added to volumes, in the later stage from this image (FROM okatsn/my-tex-life) cannot have their customized vscode extensions in devcontainer.json successfully setup.
