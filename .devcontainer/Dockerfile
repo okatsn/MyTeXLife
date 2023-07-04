@@ -46,7 +46,6 @@ ARG NB_GID="100"
 
 
 ARG VSCODE_PATH="/home/jovyan/.vscode-server/"
-ARG VSCODE_INSIDER_PATH="/home/jovyan/.vscode-server-insiders/"
 
 ARG WORKSPACE_DIR="/workspace/dir/defined/in/docker-compose/yml"
 ARG SUB_PROJECT_DIR="/workspace/dir/defined/in/docker-compose/yml"
@@ -61,8 +60,7 @@ ENV NB_USER=$NB_USER \
     HOME=$HOME\
     PSWD=$PSWD\
     SUB_PROJECT_DIR=$SUB_PROJECT_DIR \
-    VSCODE_PATH=${VSCODE_PATH} \
-    VSCODE_INSIDER_PATH=${VSCODE_INSIDER_PATH}
+    VSCODE_PATH=${VSCODE_PATH}
 
 ## Add user $NB_USER with its group being $NB_GID
 # RUN useradd -m -g $NB_GID $NB_USER
@@ -105,13 +103,10 @@ USER $NB_UID
 WORKDIR $WORKSPACE_DIR
 
 RUN rm -rf $VSCODE_PATH
-RUN rm -rf $VSCODE_INSIDER_PATH
 RUN mkdir -p $VSCODE_PATH/extensions \
-    $VSCODE_INSIDER_PATH/extensions \
     $SUB_PROJECT_DIR \
     && chown -R $NB_USER:$NB_GID \
-    $VSCODE_PATH \
-    $VSCODE_INSIDER_PATH 
+    $VSCODE_PATH
 
 # # User cannot do this unless you use sudo
 # - see https://unix.stackexchange.com/questions/39572/allow-non-admin-users-to-install-packages-via-apt-or-rpm
