@@ -33,14 +33,16 @@ services:
       - ~/.zsh_history:/home/jovyan/.zsh_history:z
       # Git config
       - ~/.gitconfig:/home/jovyan/.gitconfig
-      # - vscode-server:/home/jovyan/.vscode-server
-      # - vscode-server-insiders:/home/jovyan/.vscode-server-insiders
+      # Avoid reinstall vscode extensions
+      # KEYNOTE: Please refer to my-julia-space for more explanation
+      # noted the context of my-tex-life is different from that of my-julia-space (so I have an additional `~/` here)
+      - ~/.vscode-server:/home/jovyan/.vscode-server
+
     environment:
       - TZ=TW
       # Set time zone
       # entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
     entrypoint: sh -c "sleep infinity"
 
-# volumes:
-#   vscode-server:
-#   vscode-server-insiders:
+volumes:
+  vscode-server:
