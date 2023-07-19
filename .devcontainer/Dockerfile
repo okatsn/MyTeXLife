@@ -10,7 +10,10 @@ RUN apt-get update && apt-get -y install \
     ghostscript \
     # ghostscript for handling eps image files
     curl \
-    bash-completion\
+    # tree is a convenient tool to print directory tree
+    bash-completion \
+    sudo \
+    tree \
     # # This fix the annoying chktex warning
     # Which is equivalently in bash,
     # 1. apt-get install chktex
@@ -102,6 +105,25 @@ RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
 USER $NB_UID
 WORKDIR $WORKSPACE_DIR
 
+# Install DVC
+# https://dvc.org/doc/install/linux#install-from-repository
+RUN sudo wget \
+    https://dvc.org/deb/dvc.list \
+    -O /etc/apt/sources.list.d/dvc.list && \
+    wget -qO - https://dvc.org/deb/iterative.asc | gpg --dearmor > packages.iterative.gpg && \
+    sudo install -o root -g root -m 644 packages.iterative.gpg /etc/apt/trusted.gpg.d/ && \
+    rm -f packages.iterative.gpg && \
+    sudo apt update && \
+    sudo apt install dvc
+
+# CHECKPOINT: I didn't figure out how to install dvc not using conda, pip or mamba yet.
+# See: 
+# - https://dvc.org/doc/user-guide/data-management/remote-storage
+# - https://dvc.org/doc/user-guide/data-management/remote-storage/google-drive
+# - https://github.com/iterative/dvc-gdrive
+# - https://dvc.org/doc/install/ide-plugins
+
+# RESET VSCODE
 RUN rm -rf $VSCODE_PATH
 RUN mkdir -p $VSCODE_PATH/extensions \
     $SUB_PROJECT_DIR \
