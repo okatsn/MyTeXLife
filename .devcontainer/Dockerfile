@@ -20,6 +20,16 @@ RUN apt-get update && apt-get -y install \
     cp /usr/bin/chktex /usr/local/bin/chktex
 
 
+RUN wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list \
+    && wget -qO - https://dvc.org/deb/iterative.asc | gpg --dearmor > packages.iterative.gpg \
+    && install -o root -g root -m 644 packages.iterative.gpg /etc/apt/trusted.gpg.d/ \
+    && rm -f packages.iterative.gpg \
+    && apt update \
+    && apt install sudo \
+    && apt install dvc \
+    && dvc completion -s bash | tee /etc/bash_completion.d/dvc
+
+
 # Other packages:
 # inkscape is for including svg; but ["The smoothest route"](https://danmackinlay.name/notebook/latex.html#svg) that converts SVG into PDF+TeX seems very unsuitable for submitting to an academic journal.
 
@@ -32,6 +42,16 @@ RUN apt-get update && apt-get -y install \
 
 ## Only root can chmod files/directories that are accessible only to root
 USER root
+
+# Install Fonts
+# in order to use `fc-cache -f -v` and `fc-list :lang=zh`
+# - `fc-cache -f -v`: (copy font files to /usr/share/fonts/ and Update Font Cache)
+# - `fc-list :lang=zh`: List all chinese font available
+RUN apt update && apt install \
+    fontconfig \
+    fonts-noto-cjk \
+    fonts-arphic-uming \
+    fonts-arphic-ukai
 
 
 ## Copy the file ".devcontainer/fix-permissions" to local machine for later call
