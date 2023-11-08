@@ -10,6 +10,8 @@ RUN apt-get update && apt-get -y install \
     ghostscript \
     # ghostscript for handling eps image files
     curl \
+    qpdf \
+    # You can use qpdf to add password to pdf, it is small and useful.
     bash-completion\
     # # This fix the annoying chktex warning
     # Which is equivalently in bash,
@@ -25,7 +27,6 @@ RUN wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list \
     && install -o root -g root -m 644 packages.iterative.gpg /etc/apt/trusted.gpg.d/ \
     && rm -f packages.iterative.gpg \
     && apt update \
-    && apt install sudo \
     && apt install dvc \
     && dvc completion -s bash | tee /etc/bash_completion.d/dvc
 
@@ -48,6 +49,7 @@ USER root
 # - `fc-cache -f -v`: (copy font files to /usr/share/fonts/ and Update Font Cache)
 # - `fc-list :lang=zh`: List all chinese font available
 RUN apt update && apt install \
+    sudo \
     fontconfig \
     fonts-noto-cjk \
     fonts-arphic-uming \
