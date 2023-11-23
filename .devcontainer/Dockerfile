@@ -94,8 +94,9 @@ RUN apt update && apt install \
     sudo \
     fontconfig \
     fonts-noto-cjk \
-    fonts-arphic-uming \
-    fonts-arphic-ukai \
+    fonts-noto-cjk-extra \
+    # fonts-arphic-uming \
+    # fonts-arphic-ukai \
     # The following lines are required to make jovyan in the sudoer list.
     && echo $NB_USER ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$NB_USER \
     && chmod 0440 /etc/sudoers.d/$NB_USER \
