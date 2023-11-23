@@ -44,18 +44,6 @@ RUN wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list \
 ## Only root can chmod files/directories that are accessible only to root
 USER root
 
-# Install Fonts
-# in order to use `fc-cache -f -v` and `fc-list :lang=zh`
-# - `fc-cache -f -v`: (copy font files to /usr/share/fonts/ and Update Font Cache)
-# - `fc-list :lang=zh`: List all chinese font available
-RUN apt update && apt install \
-    sudo \
-    fontconfig \
-    fonts-noto-cjk \
-    fonts-arphic-uming \
-    fonts-arphic-ukai
-
-
 ## Copy the file ".devcontainer/fix-permissions" to local machine for later call
 # - also see https://www.cnblogs.com/sparkdev/p/9573248.html for "building context"
 COPY fix-permissions /usr/local/bin/fix-permissions
@@ -74,6 +62,7 @@ ARG SUB_PROJECT_DIR="/workspace/dir/defined/in/docker-compose/yml"
 ARG HOME=/home/$NB_USER
 
 ARG PSWD="1234"
+
 ## Configure environment
 ENV NB_USER=$NB_USER \
     NB_UID=$NB_UID \
@@ -97,6 +86,20 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER
 RUN echo $NB_USER:$PSWD | chpasswd
 RUN echo root:$PSWD | chpasswd
 
+# Install Fonts and SUDO
+# in order to use `fc-cache -f -v` and `fc-list :lang=zh`
+# - `fc-cache -f -v`: (copy font files to /usr/share/fonts/ and Update Font Cache)
+# - `fc-list :lang=zh`: List all chinese font available
+RUN apt update && apt install \
+    sudo \
+    fontconfig \
+    fonts-noto-cjk \
+    fonts-arphic-uming \
+    fonts-arphic-ukai \
+    # The following lines are required to make jovyan in the sudoer list.
+    && echo $NB_USER ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$NB_USER \
+    && chmod 0440 /etc/sudoers.d/$NB_USER \
+    && apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 
 # # Copy files in .devcontainer to HOME for default configurations
