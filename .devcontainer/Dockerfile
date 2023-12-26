@@ -27,7 +27,7 @@ RUN wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list \
     && install -o root -g root -m 644 packages.iterative.gpg /etc/apt/trusted.gpg.d/ \
     && rm -f packages.iterative.gpg \
     && apt update \
-    && apt install dvc \
+    && apt install dvc=3.33.4 \
     && dvc completion -s bash | tee /etc/bash_completion.d/dvc
 
 
