@@ -21,7 +21,7 @@ RUN apt-get update && apt-get -y install \
     chktex && \
     cp /usr/bin/chktex /usr/local/bin/chktex
 
-
+# Install DVC (please make it synced with MyJuliaSpace)
 RUN wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list \
     && wget -qO - https://dvc.org/deb/iterative.asc | gpg --dearmor > packages.iterative.gpg \
     && install -o root -g root -m 644 packages.iterative.gpg /etc/apt/trusted.gpg.d/ \
