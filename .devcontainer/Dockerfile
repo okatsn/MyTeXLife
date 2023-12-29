@@ -56,7 +56,6 @@ ARG NB_GID="to_be_replaced_by_that_in_docker-compose.yml"
 ARG PSWD="to_be_replaced_by_that_in_docker-compose.yml"
 
 
-# TODO: CLEAN ANYTHING ABOUT VSCODE ENVIRONMENT
 ARG VSCODE_PATH="/home/jovyan/.vscode-server/"
 
 ARG WORKSPACE_DIR="/workspace/dir/defined/in/docker-compose/yml"

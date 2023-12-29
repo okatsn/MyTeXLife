@@ -33,3 +33,12 @@ Clone your project into "workspace/projects"
 
 Open your project in a new window using GPM
 - `Ctrl+Shift+P` and type "GPM" (for [felipecaputo.git-project-manager](https://github.com/felipecaputo/git-project-manager)) to open sub-repositories (detected only if they are under "projects") in a new window.
+
+## For building a multi-stage docker image
+
+MyTeXLife designed to serve as the base image of a multi-stage docker image.
+That is, `FROM okatsn/my-tex-life` should be the last `FROM` command in the Dockerfile of a multi-stage docker image. 
+
+For apps installed in any earlier intermediate stages, their permission should be transferred to the user that is specified in `MyTeXLife/.devcontainer/.env` file.
+
+In the last stage (after `FROM okatsn/my-tex-life` command), user information variables such as `NB_USER`, `NB_UID` and `NB_GID` can be directly used as `$NB_USER`.
