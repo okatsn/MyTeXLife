@@ -14,6 +14,10 @@ services:
         # SETME: make this consistent with that in devcontainer.json
         # SUB_PROJECT_DIR is intended for you to easily go there for cloning your projects,
         # i.e., cd $SUB_PROJECT_DIR
+        NB_UID: ${NB_UID}
+        NB_GID: ${NB_GID}
+        NB_USER: ${NB_USER}
+        PSWD: ${PSWD}
     image: latexdevcontainer
     init: true
     # See https://docs.docker.com/compose/compose-file/compose-file-v3/#init

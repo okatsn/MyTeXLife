@@ -50,18 +50,19 @@ COPY fix-permissions /usr/local/bin/fix-permissions
 RUN chmod a+rx /usr/local/bin/fix-permissions
 
 
-ARG NB_USER="jovyan"
-ARG NB_UID="1000"
-ARG NB_GID="100"
+ARG NB_USER="to_be_replaced_by_that_in_docker-compose.yml"
+ARG NB_UID="to_be_replaced_by_that_in_docker-compose.yml"
+ARG NB_GID="to_be_replaced_by_that_in_docker-compose.yml"
+ARG PSWD="to_be_replaced_by_that_in_docker-compose.yml"
 
 
+# TODO: CLEAN ANYTHING ABOUT VSCODE ENVIRONMENT
 ARG VSCODE_PATH="/home/jovyan/.vscode-server/"
 
 ARG WORKSPACE_DIR="/workspace/dir/defined/in/docker-compose/yml"
 ARG SUB_PROJECT_DIR="/workspace/dir/defined/in/docker-compose/yml"
 ARG HOME=/home/$NB_USER
 
-ARG PSWD="1234"
 
 ## Configure environment
 ENV NB_USER=$NB_USER \
