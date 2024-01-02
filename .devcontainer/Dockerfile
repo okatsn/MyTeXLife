@@ -1,5 +1,5 @@
 # # KEYNOTE: Follow the instructions to build, tag this image in WSL:
-# docker-compose -f .devcontainer/docker-compose.yml build
+# docker-compose -f .devcontainer/docker-compose.yml build --no-cache
 # docker tag latexdevcontainer okatsn/my-tex-life:latest
 # docker push okatsn/my-tex-life:latest
 #
