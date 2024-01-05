@@ -30,7 +30,9 @@ RUN apt-get update && apt-get -y install \
     # 2. cp /usr/bin/chktex /usr/local/bin/chktex
     # Noted that `COPY /usr/bin/chktex /usr/local/bin/chktex` will fail due to "no such file or directory: /usr/bin/chktex"
     chktex && \
-    cp /usr/bin/chktex /usr/local/bin/chktex
+    cp /usr/bin/chktex /usr/local/bin/chktex \
+    # # In order to use `\usepackage[pdf]{graphviz}` in tex file
+    graphviz
 
 # Install DVC (please make it synced with MyJuliaSpace)
 RUN wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list \
