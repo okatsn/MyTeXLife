@@ -24,15 +24,16 @@ RUN apt-get update && apt-get -y install \
     qpdf \
     # You can use qpdf to add password to pdf, it is small and useful.
     bash-completion\
+    # # In order to use `\usepackage[pdf]{graphviz}` in tex file
+    graphviz \
     # # This fix the annoying chktex warning
     # Which is equivalently in bash,
     # 1. apt-get install chktex
     # 2. cp /usr/bin/chktex /usr/local/bin/chktex
     # Noted that `COPY /usr/bin/chktex /usr/local/bin/chktex` will fail due to "no such file or directory: /usr/bin/chktex"
     chktex && \
-    cp /usr/bin/chktex /usr/local/bin/chktex \
-    # # In order to use `\usepackage[pdf]{graphviz}` in tex file
-    graphviz
+    cp /usr/bin/chktex /usr/local/bin/chktex
+
 
 # Install DVC (please make it synced with MyJuliaSpace)
 RUN wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list \
