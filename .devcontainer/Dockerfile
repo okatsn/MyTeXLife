@@ -104,7 +104,7 @@ RUN echo root:$PSWD | chpasswd
 # in order to use `fc-cache -f -v` and `fc-list :lang=zh`
 # - `fc-cache -f -v`: (copy font files to /usr/share/fonts/ and Update Font Cache)
 # - `fc-list :lang=zh`: List all chinese font available
-RUN apt update && apt install \
+RUN apt-get update && apt-get -y install \
     sudo \
     fontconfig \
     fonts-noto-cjk \
