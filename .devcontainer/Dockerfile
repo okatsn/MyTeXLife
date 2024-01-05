@@ -67,6 +67,8 @@ ARG NB_GID="to_be_replaced_by_that_in_docker-compose.yml"
 ARG PSWD="to_be_replaced_by_that_in_docker-compose.yml"
 
 
+ARG VSCODE_PATH="/home/jovyan/.vscode-server/"
+
 ARG WORKSPACE_DIR="/workspace/dir/defined/in/docker-compose/yml"
 ARG SUB_PROJECT_DIR="/workspace/dir/defined/in/docker-compose/yml"
 ARG HOME=/home/$NB_USER
@@ -79,7 +81,8 @@ ENV NB_USER=$NB_USER \
     WORKSPACE_DIR=$WORKSPACE_DIR\
     HOME=$HOME\
     PSWD=$PSWD\
-    SUB_PROJECT_DIR=$SUB_PROJECT_DIR
+    SUB_PROJECT_DIR=$SUB_PROJECT_DIR \
+    VSCODE_PATH=${VSCODE_PATH}
 
 ## Add user $NB_USER with its group being $NB_GID
 # RUN useradd -m -g $NB_GID $NB_USER
@@ -136,6 +139,11 @@ RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
 USER $NB_UID
 WORKDIR $WORKSPACE_DIR
 
+RUN rm -rf $VSCODE_PATH && \
+    mkdir -p $VSCODE_PATH/extensions \
+    $SUB_PROJECT_DIR \
+    && chown -R $NB_USER:$NB_GID \
+    $VSCODE_PATH
 
 # # User cannot do this unless you use sudo
 # - see https://unix.stackexchange.com/questions/39572/allow-non-admin-users-to-install-packages-via-apt-or-rpm
