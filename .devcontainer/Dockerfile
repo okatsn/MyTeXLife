@@ -24,6 +24,8 @@ RUN apt-get update && apt-get -y install \
     qpdf \
     # You can use qpdf to add password to pdf, it is small and useful.
     bash-completion\
+    # # In order to use `\usepackage[pdf]{graphviz}` in tex file
+    graphviz \
     # # This fix the annoying chktex warning
     # Which is equivalently in bash,
     # 1. apt-get install chktex
@@ -31,6 +33,7 @@ RUN apt-get update && apt-get -y install \
     # Noted that `COPY /usr/bin/chktex /usr/local/bin/chktex` will fail due to "no such file or directory: /usr/bin/chktex"
     chktex && \
     cp /usr/bin/chktex /usr/local/bin/chktex
+
 
 # Install DVC (please make it synced with MyJuliaSpace)
 RUN wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list \
@@ -67,6 +70,8 @@ ARG NB_GID="to_be_replaced_by_that_in_docker-compose.yml"
 ARG PSWD="to_be_replaced_by_that_in_docker-compose.yml"
 
 
+ARG VSCODE_PATH="/home/jovyan/.vscode-server/"
+
 ARG WORKSPACE_DIR="/workspace/dir/defined/in/docker-compose/yml"
 ARG SUB_PROJECT_DIR="/workspace/dir/defined/in/docker-compose/yml"
 ARG HOME=/home/$NB_USER
@@ -79,7 +84,8 @@ ENV NB_USER=$NB_USER \
     WORKSPACE_DIR=$WORKSPACE_DIR\
     HOME=$HOME\
     PSWD=$PSWD\
-    SUB_PROJECT_DIR=$SUB_PROJECT_DIR
+    SUB_PROJECT_DIR=$SUB_PROJECT_DIR \
+    VSCODE_PATH=${VSCODE_PATH}
 
 ## Add user $NB_USER with its group being $NB_GID
 # RUN useradd -m -g $NB_GID $NB_USER
@@ -98,7 +104,7 @@ RUN echo root:$PSWD | chpasswd
 # in order to use `fc-cache -f -v` and `fc-list :lang=zh`
 # - `fc-cache -f -v`: (copy font files to /usr/share/fonts/ and Update Font Cache)
 # - `fc-list :lang=zh`: List all chinese font available
-RUN apt update && apt install \
+RUN apt-get update && apt-get -y install \
     sudo \
     fontconfig \
     fonts-noto-cjk \
@@ -136,6 +142,11 @@ RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
 USER $NB_UID
 WORKDIR $WORKSPACE_DIR
 
+RUN rm -rf $VSCODE_PATH && \
+    mkdir -p $VSCODE_PATH/extensions \
+    $SUB_PROJECT_DIR \
+    && chown -R $NB_USER:$NB_GID \
+    $VSCODE_PATH
 
 # # User cannot do this unless you use sudo
 # - see https://unix.stackexchange.com/questions/39572/allow-non-admin-users-to-install-packages-via-apt-or-rpm
