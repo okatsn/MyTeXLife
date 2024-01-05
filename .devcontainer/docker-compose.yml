@@ -37,16 +37,16 @@ services:
       - ~/.zsh_history:/home/jovyan/.zsh_history:z
       # Git config
       - ~/.gitconfig:/home/jovyan/.gitconfig
-      # Avoid reinstall vscode extensions
-      # KEYNOTE: Please refer to my-julia-space for more explanation
-      # noted the context of my-tex-life is different from that of my-julia-space (so I have an additional `~/` here)
-      - ~/.vscode-server:/home/jovyan/.vscode-server
-
+      - vscode-server:/home/jovyan/.vscode-server
+      # KEYNOTE: 
+      # - Named volumes is chosen because VSCode extensions of my-tex-life should not be shared with those in WSL.
+      # - Please refer to MyTeXLifeWithJulia for more explanation
     environment:
       - TZ=TW
       # Set time zone
       # entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
     entrypoint: sh -c "sleep infinity"
 
+# Global volumes
 volumes:
   vscode-server:

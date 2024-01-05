@@ -1,9 +1,20 @@
+# # KEYNOTE: Follow the instructions to build, tag this image in WSL:
+# docker-compose -f .devcontainer/docker-compose.yml build --no-cache
+# docker tag latexdevcontainer okatsn/my-tex-life:latest
+# docker push okatsn/my-tex-life:latest
+#
+# # or in WSL, Ctrl+Shift+P and choose Dev Containers: Rebuild Container Without Cache
+
+# # KEYNOTE: How to use
+# - Create a new Dockerfile
+# - FROM okatsn/my-tex-life:latest
+# - You can refer the .devcontainer to build your vscode environment.
+
+
 # FROM qmcgaw/latexdevcontainer:latest
 FROM qmcgaw/latexdevcontainer:latest-full
 # KEYNOTE: Very likely everything is set up with `USER root` in `FROM qmcgaw/latexdevcontainer:latest`.
 
-# Install `chktex` does no help the the warning: usr/local/bin/chktex: WARNING -- Could not find global resource file.
-# - It is no-error but useless to RUN the following at workspace/Dockerfile (services: vscode; see docker-compose.yml)
 RUN apt-get update && apt-get -y install \
     libfontconfig libfontconfig1 \
     # libfontconfig1 is for ... I don't know. But without it, my LaTeX compliation failed
@@ -56,8 +67,6 @@ ARG NB_GID="to_be_replaced_by_that_in_docker-compose.yml"
 ARG PSWD="to_be_replaced_by_that_in_docker-compose.yml"
 
 
-ARG VSCODE_PATH="/home/jovyan/.vscode-server/"
-
 ARG WORKSPACE_DIR="/workspace/dir/defined/in/docker-compose/yml"
 ARG SUB_PROJECT_DIR="/workspace/dir/defined/in/docker-compose/yml"
 ARG HOME=/home/$NB_USER
@@ -70,8 +79,7 @@ ENV NB_USER=$NB_USER \
     WORKSPACE_DIR=$WORKSPACE_DIR\
     HOME=$HOME\
     PSWD=$PSWD\
-    SUB_PROJECT_DIR=$SUB_PROJECT_DIR \
-    VSCODE_PATH=${VSCODE_PATH}
+    SUB_PROJECT_DIR=$SUB_PROJECT_DIR
 
 ## Add user $NB_USER with its group being $NB_GID
 # RUN useradd -m -g $NB_GID $NB_USER
@@ -128,11 +136,6 @@ RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
 USER $NB_UID
 WORKDIR $WORKSPACE_DIR
 
-RUN rm -rf $VSCODE_PATH
-RUN mkdir -p $VSCODE_PATH/extensions \
-    $SUB_PROJECT_DIR \
-    && chown -R $NB_USER:$NB_GID \
-    $VSCODE_PATH
 
 # # User cannot do this unless you use sudo
 # - see https://unix.stackexchange.com/questions/39572/allow-non-admin-users-to-install-packages-via-apt-or-rpm
