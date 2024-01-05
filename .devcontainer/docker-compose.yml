@@ -37,16 +37,24 @@ services:
       - ~/.zsh_history:/home/jovyan/.zsh_history:z
       # Git config
       - ~/.gitconfig:/home/jovyan/.gitconfig
-      # Avoid reinstall vscode extensions
-      # KEYNOTE: Please refer to my-julia-space for more explanation
-      # noted the context of my-tex-life is different from that of my-julia-space (so I have an additional `~/` here)
-      - ~/.vscode-server:/home/jovyan/.vscode-server
-
+      #
+      # # KEYNOTE: Choose volume type for vscode extensions
+      # # **A Named Volume**: Docker manages the volume and associates it with the specified path inside the container (/home/jovyan/.vscode-server). It can help avoid permission issues, as Docker handles the ownership and permissions of the volume. The data may not be as easily accessible from the host, as it is managed by Docker. For every named volume, the name should be added to global volumes as below.
+      - vscode-server:/home/jovyan/.vscode-server
+      # # **A Bind Mount**: This mounts the `~/.vscode-server` in host (e.g., \\wsl.localhost\Ubuntu-20.04\home\okatsn\.vscode-server) into `/home/jovyan/.vscode-server` in the container. Adding/Removing VSCode extensions in either VSCode WSL (Ctrl+Shift+P Open Folder in WSL) or in VSCode Dev. container will result in the change of the host machine's ~/.vscode-server (you can take a look at how .vscode-server/extensions/extensions.json changed).
+      # - ~/.vscode-server:/home/jovyan/.vscode-server
+      # # Noted the context of the local host (i.e., WSL) is different from that in the container;
+      # # this is why there is an additional `~/` here for the host (on the left).
+      #
+      # # KEYNOTE:
+      # # - Named volumes is chosen because VSCode extensions of my-tex-life should not be shared with those in WSL.
+      # # - For both Bind Mount and Named Volume, permission of accessing VSCODE_PATH for NB_USER is required. See commit message e6c848cf.
     environment:
       - TZ=TW
       # Set time zone
       # entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
     entrypoint: sh -c "sleep infinity"
 
+# Global volumes
 volumes:
   vscode-server:

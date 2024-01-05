@@ -1,9 +1,20 @@
+# # KEYNOTE: Follow the instructions to build, tag this image in WSL:
+# docker-compose -f .devcontainer/docker-compose.yml build --no-cache
+# docker tag latexdevcontainer okatsn/my-tex-life:latest
+# docker push okatsn/my-tex-life:latest
+#
+# # or in WSL, Ctrl+Shift+P and choose Dev Containers: Rebuild Container Without Cache
+
+# # KEYNOTE: How to use
+# - Create a new Dockerfile
+# - FROM okatsn/my-tex-life:latest
+# - You can refer the .devcontainer to build your vscode environment.
+
+
 # FROM qmcgaw/latexdevcontainer:latest
 FROM qmcgaw/latexdevcontainer:latest-full
 # KEYNOTE: Very likely everything is set up with `USER root` in `FROM qmcgaw/latexdevcontainer:latest`.
 
-# Install `chktex` does no help the the warning: usr/local/bin/chktex: WARNING -- Could not find global resource file.
-# - It is no-error but useless to RUN the following at workspace/Dockerfile (services: vscode; see docker-compose.yml)
 RUN apt-get update && apt-get -y install \
     libfontconfig libfontconfig1 \
     # libfontconfig1 is for ... I don't know. But without it, my LaTeX compliation failed
@@ -13,6 +24,8 @@ RUN apt-get update && apt-get -y install \
     qpdf \
     # You can use qpdf to add password to pdf, it is small and useful.
     bash-completion\
+    # # In order to use `\usepackage[pdf]{graphviz}` in tex file
+    graphviz \
     # # This fix the annoying chktex warning
     # Which is equivalently in bash,
     # 1. apt-get install chktex
@@ -20,6 +33,7 @@ RUN apt-get update && apt-get -y install \
     # Noted that `COPY /usr/bin/chktex /usr/local/bin/chktex` will fail due to "no such file or directory: /usr/bin/chktex"
     chktex && \
     cp /usr/bin/chktex /usr/local/bin/chktex
+
 
 # Install DVC (please make it synced with MyJuliaSpace)
 RUN wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list \
@@ -90,7 +104,7 @@ RUN echo root:$PSWD | chpasswd
 # in order to use `fc-cache -f -v` and `fc-list :lang=zh`
 # - `fc-cache -f -v`: (copy font files to /usr/share/fonts/ and Update Font Cache)
 # - `fc-list :lang=zh`: List all chinese font available
-RUN apt update && apt install \
+RUN apt-get update && apt-get -y install \
     sudo \
     fontconfig \
     fonts-noto-cjk \
@@ -128,8 +142,8 @@ RUN chown $NB_USER:$NB_GID $WORKSPACE_DIR && \
 USER $NB_UID
 WORKDIR $WORKSPACE_DIR
 
-RUN rm -rf $VSCODE_PATH
-RUN mkdir -p $VSCODE_PATH/extensions \
+RUN rm -rf $VSCODE_PATH && \
+    mkdir -p $VSCODE_PATH/extensions \
     $SUB_PROJECT_DIR \
     && chown -R $NB_USER:$NB_GID \
     $VSCODE_PATH

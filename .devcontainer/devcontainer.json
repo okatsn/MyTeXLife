@@ -22,7 +22,7 @@
                 "jeffersonqin.latex-snippets-jeff",
                 "tecosaur.latex-utilities",
                 "valentjn.vscode-ltex", // Spell & Grammar check
-                "tabnine.tabnine-vscode", // Other helpers
+                // Other helpers
                 "stkb.rewrap", // rewrap comments after n characters on one line
                 "vscode-icons-team.vscode-icons",
             ],
