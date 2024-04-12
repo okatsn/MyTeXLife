@@ -26,6 +26,8 @@ RUN apt-get update && apt-get -y install \
     bash-completion\
     # # In order to use `\usepackage[pdf]{graphviz}` in tex file
     graphviz \
+    # # pdf2svg is required to preview EPS files
+    pdf2svg \
     # # This fix the annoying chktex warning
     # Which is equivalently in bash,
     # 1. apt-get install chktex
@@ -41,7 +43,7 @@ RUN wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list \
     && install -o root -g root -m 644 packages.iterative.gpg /etc/apt/trusted.gpg.d/ \
     && rm -f packages.iterative.gpg \
     && apt update \
-    && apt install dvc=3.33.4 \
+    && apt install dvc=3.49.0 \
     && dvc completion -s bash | tee /etc/bash_completion.d/dvc
 
 
