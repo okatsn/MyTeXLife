@@ -2,7 +2,7 @@
 # This script seemingly don't take any effect in the building stage at all.
 
 ARG DEBIAN_VERSION=bullseye-slim
-ARG BASEDEV_VERSION=v0.9.0
+ARG BASEDEV_VERSION=v0.25.0
 
 FROM debian:${DEBIAN_VERSION} AS chktex
 ARG CHKTEX_VERSION=1.7.6
@@ -34,7 +34,7 @@ WORKDIR /tmp/texlive
 ARG SCHEME=scheme-basic
 ARG DOCFILES=0
 ARG SRCFILES=0
-ARG TEXLIVE_VERSION=2023
+ARG TEXLIVE_VERSION=2024
 ARG TEXLIVE_MIRROR=http://ctan.math.utah.edu/ctan/tex-archive/systems/texlive/tlnet
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends wget gnupg cpanminus && \
