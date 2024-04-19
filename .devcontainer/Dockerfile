@@ -1,15 +1,3 @@
-# # KEYNOTE: Follow the instructions to build, tag this image in WSL:
-# docker-compose -f .devcontainer/docker-compose.yml build --no-cache
-# docker tag latexdevcontainer okatsn/my-tex-life:latest
-# docker push okatsn/my-tex-life:latest
-#
-# # or in WSL, Ctrl+Shift+P and choose Dev Containers: Rebuild Container Without Cache
-
-# # KEYNOTE: How to use
-# - Create a new Dockerfile
-# - FROM okatsn/my-tex-life:latest
-# - You can refer the .devcontainer to build your vscode environment.
-
 
 # FROM qmcgaw/latexdevcontainer:latest
 FROM qmcgaw/latexdevcontainer:latest-full
