@@ -5,7 +5,7 @@ In comparison, [okatsn/MyTeXLife](https://github.com/okatsn/MyTeXLife.git) provi
 
 Additional vscode extensions and settings (includes a set of default LaTeX recipes for handling complex LaTeX rendering) were also be pre-installed; see *devcontainer.json*.
 
-## Build the `my-tex-life` image (for developer)
+## Build the `my-tex-life` image (for okatsn)
 Follow the instructions to build, tag this image in WSL
 ```bash
 # Open the okatsn/my-workspace repository where my-tex-life resides as a submodule.
@@ -17,13 +17,20 @@ docker push okatsn/my-tex-life:latest
 ```
 
 or in WSL in the directory of `my-tex-life/`, `Ctrl+Shift+P` and choose `Dev Containers: Rebuild Container Without Cache`
+## Sync with the upstream qdm12/latexdevcontainer
 
-### How to build other image based on `my-tex-life` (for user)
+- Use `remote -v` to make sure is the upstream; if not, `git remote add upstream https://github.com/qdm12/latexdevcontainer.git`
+- `git fetch upstream`
+- `git merge upstream/master`
+
+## How to build other image based on `my-tex-life` (for user)
+Use the Docker image on the shelf:
 - Create a new Dockerfile
 - Add `FROM okatsn/my-tex-life:latest` in the last stage.
 - You can refer the .devcontainer to build your vscode environment.
 
 See [okatsn/my-tex-life on Dockerhub](https://hub.docker.com/repository/docker/okatsn/my-tex-life/general) for versions.
+
 
 ## Hints 
 
