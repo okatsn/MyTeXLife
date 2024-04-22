@@ -8,7 +8,10 @@ RUN apt-get update && apt-get -y install \
     # libfontconfig1 is for ... I don't know. But without it, my LaTeX compliation failed
     ghostscript \
     # ghostscript for handling eps image files
+    tree \
+    # tree is a convenient tool to print directory tree
     curl \
+    git \
     qpdf \
     # You can use qpdf to add password to pdf, it is small and useful.
     bash-completion\
