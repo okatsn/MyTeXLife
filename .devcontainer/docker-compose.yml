@@ -1,13 +1,13 @@
-# This is [Compose file](https://docs.docker.com/compose/compose-file/compose-file-v3/)
-version: "3.2"
+version: "3.8"
 
 services:
   vscode:
     build:
       context: .
-      # That is, /.devcontainer
+      #     That is out of /.devcontainer
+      # context: .
+      #     That is /.devcontainer
       dockerfile: Dockerfile
-      # That is, /.devcontainer/Dockerfile (rename makes it more clear)
       args:
         WORKSPACE_DIR: /workspace
         SUB_PROJECT_DIR: /workspace/projects
@@ -18,26 +18,26 @@ services:
         NB_GID: ${NB_GID}
         NB_USER: ${NB_USER}
         PSWD: ${PSWD}
+    # Better not to have duplicate image name
     image: latexdevcontainer
     init: true
     # See https://docs.docker.com/compose/compose-file/compose-file-v3/#init
-    volumes:
-      # The home directory is called "workspace"; try `cd ..` and `ls` to figure it out.
-      - ../:/workspace
-      # SETME: make this consistent with that in devcontainer.json
 
-      # Docker socket to access Docker server
+    # Better not to have duplicate container name. Error "Conflict will occur if another. The container name "/tex-with-julia" is already in use by container" might occur if there is another container of the same name is currently running.
+    container_name: my-tex
+    volumes:
+      # # The home directory is called "workspace"; try `cd ..` and `ls` to figure it out.
+      - ../:/workspace
+      # # Docker socket to access Docker server
       - /var/run/docker.sock:/var/run/docker.sock
-      # SSH directory
+      # # SSH directory
       - ~/.ssh:/home/jovyan/.ssh
-      # For Windows without WSL, a copy will be made
-      # from /tmp/.ssh to ~/.ssh to fix permissions
+      # For Windows without WSL, a copy will be made from /tmp/.ssh to ~/.ssh to fix permissions
       # - ~/.ssh:/tmp/.ssh:ro
-      # Shell history persistence
+      # # Shell history persistence
       - ~/.zsh_history:/home/jovyan/.zsh_history:z
-      # Git config
-      - ~/.gitconfig:/home/jovyan/.gitconfig
-      #
+      # # Git config
+      - ~/.gitconfig:/home/jovyan/.gitconfig #
       # # KEYNOTE: Choose volume type for vscode extensions
       # # **A Named Volume**: Docker manages the volume and associates it with the specified path inside the container (/home/jovyan/.vscode-server). It can help avoid permission issues, as Docker handles the ownership and permissions of the volume. The data may not be as easily accessible from the host, as it is managed by Docker. For every named volume, the name should be added to global volumes as below.
       - vscode-server:/home/jovyan/.vscode-server
@@ -54,7 +54,7 @@ services:
       # Set time zone
       # entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
     entrypoint: sh -c "sleep infinity"
-
-# Global volumes
+# KEYNOTE: Those defined volumes in service should be declared in the root level
+# Unbind vscode-server to volumes to ensure extensions in devcontainer.json to be installed on rebuild
 volumes:
   vscode-server:
