@@ -28,15 +28,6 @@ RUN apt-get update && apt-get -y install \
     cp /usr/bin/chktex /usr/local/bin/chktex
 
 
-# Install DVC
-RUN wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list \
-    && wget -qO - https://dvc.org/deb/iterative.asc | gpg --dearmor > packages.iterative.gpg \
-    && install -o root -g root -m 644 packages.iterative.gpg /etc/apt/trusted.gpg.d/ \
-    && rm -f packages.iterative.gpg \
-    && apt update \
-    && apt install dvc=3.53.2 \
-    && dvc completion -s bash | tee /etc/bash_completion.d/dvc
-
 
 # Other packages:
 # inkscape is for including svg; but ["The smoothest route"](https://danmackinlay.name/notebook/latex.html#svg) that converts SVG into PDF+TeX seems very unsuitable for submitting to an academic journal.
