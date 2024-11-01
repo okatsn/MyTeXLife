@@ -3,7 +3,7 @@ pre-commit:
     testing:
       run: echo "Hello these are all {staged_files}"
     dockerbuild3:
-      glob: ".devcontainer/Dockerfile"
+      glob: "{.devcontainer/docker-compose.yml,.devcontainer/Dockerfile}"
       run: . ./docker_build_and_push.sh
 # Lefthook:  https://github.com/evilmartians/lefthook
 # - Use `lefthook run pre-commit` to manually run pre-commit commands.

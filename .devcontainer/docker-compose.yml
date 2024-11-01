@@ -54,7 +54,7 @@ services:
       # Set time zone
       # entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
     entrypoint: sh -c "sleep infinity"
-# KEYNOTE: Those defined volumes in service should be declared in the root level
+# # KEYNOTE: Those defined volumes in service should be declared in the root level
 # Unbind vscode-server to volumes to ensure extensions in devcontainer.json to be installed on rebuild
 volumes:
   vscode-server:
